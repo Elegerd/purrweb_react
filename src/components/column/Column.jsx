@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Textarea from "../common_components/Textarea";
+import Card from "../card/Card";
 import "./column.css";
 
 
@@ -37,6 +38,8 @@ const Column = ({ column, cards, comments, onChangeColumn, onAddCard }) => {
             <div ref={newCard} className={'new-card'}>
                 <Textarea
                     value={newCardTitle}
+                    placeholder={'Ввести заголовок для этой карточки'}
+                    onKeyPress={handleOnKeyPressCard}
                     onChangeValue={(value) => setNewCardTitle(value)}
                     onChangeIsEdit={(value) => setIsAddingCard(value)}
                 />
@@ -52,6 +55,21 @@ const Column = ({ column, cards, comments, onChangeColumn, onAddCard }) => {
         );
     }
 
+    const handleOnKeyPressTitle = e => {
+        if (!e.shiftKey && e.which === 13) {
+            setIsEditTitle(false)
+            e.preventDefault();
+        }
+    }
+
+    const handleOnKeyPressCard = e => {
+        if (!e.shiftKey && e.which === 13) {
+            onAddCard({title: newCardTitle})
+            setIsAddingCard(false)
+            setNewCardTitle('')
+        }
+    }
+
     return (
         <div className={'col column__wrapper'}>
             <div className={'column'}>
@@ -60,12 +78,22 @@ const Column = ({ column, cards, comments, onChangeColumn, onAddCard }) => {
                         value={column.title}
                         isEdit={isEditTitle}
                         onBlur={(value) => setIsEditTitle(value)}
+                        onKeyPress={handleOnKeyPressTitle}
                         onChangeValue={(value) => onChangeColumn('title', value)}
                         onChangeIsEdit={(value) => setIsEditTitle(value)}
                     />
                 </div>
                 <div className={'column__list-cards'}>
-
+                    {cards.map(card => {
+                        const card_comments = comments.filter(comment => comment.card_id === card.id)
+                        return (
+                            <Card
+                                key={card.id}
+                                card={card}
+                                comments={card_comments}
+                            />
+                        );
+                    })}
                 </div>
                 <div className={'column__column-footer'}>
                     {isAddingCard ?

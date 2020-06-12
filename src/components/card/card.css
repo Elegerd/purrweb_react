@@ -1,0 +1,19 @@
+.card {
+    padding: 5px;
+    margin: 5px 0;
+    box-shadow: 0 1px 0 rgba(10, 30, 60, 0.25);
+    cursor: pointer;
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.badges_comment {
+    display: flex;
+}
+
+.badges_comment::before {
+    margin: 0 5px;
+    content: '\270E';
+}

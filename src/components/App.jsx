@@ -37,10 +37,8 @@ const App = () => {
     const renderPopupName = () => {
         return (
             <Popup isOpen={isOpenModalName} title={'Введите имя'}>
-                <input
-                    ref={nameInput}
-                />
-                <button onClick={handleOnSubmit}>
+                <input ref={nameInput} style={{height: "37px"}}/>
+                <button style={{marginLeft: "5px"}} className={'btn btn-secondary'} onClick={handleOnSubmit}>
                     Принять
                 </button>
             </Popup>

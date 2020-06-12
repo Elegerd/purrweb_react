@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./textarea.css";
 
 
-const Textarea = ({ value, isEdit, onChangeValue, onChangeIsEdit, onBlur }) => {
+const Textarea = ({ value, placeholder, isEdit, onChangeValue, onChangeIsEdit, onBlur, onKeyPress }) => {
     const [height, setHeight] = useState(0)
     const textarea = useRef(null)
 
@@ -16,6 +16,8 @@ const Textarea = ({ value, isEdit, onChangeValue, onChangeIsEdit, onBlur }) => {
         }
     })
 
+    const handleOnBlur = (e) => onBlur(false);
+
     const handleOnChange = (e) => onChangeValue(e.target.value);
 
     const handleOnDoubleClick = e => {
@@ -23,14 +25,7 @@ const Textarea = ({ value, isEdit, onChangeValue, onChangeIsEdit, onBlur }) => {
         e.preventDefault()
     }
 
-    const handleOnKeyPressTextarea = (e) => {
-        if (!e.shiftKey && e.which === 13 || !e.shiftKey && e.which === 27) {
-            onChangeIsEdit(false)
-            e.preventDefault();
-        }
-    }
-
-    const handleOnBlur = (e) => onBlur(false);
+    const handleOnKeyPress = (e) => onKeyPress(e)
 
     return (
         <div className={'textarea-container'} onClick={handleOnDoubleClick}>
@@ -38,11 +33,12 @@ const Textarea = ({ value, isEdit, onChangeValue, onChangeIsEdit, onBlur }) => {
                 ref={textarea}
                 disabled={!isEdit}
                 spellCheck={false}
-                onKeyPress={handleOnKeyPressTextarea}
+                onKeyPress={handleOnKeyPress}
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
                 style={{height: `${height}px`} }
                 value={value}
+                placeholder={placeholder}
             />
         </div>
     );
@@ -58,9 +54,11 @@ Textarea.propTypes = {
 
 Textarea.defaultProps = {
     isEdit: true,
+    placeholder: '',
     onChangeValue: () => {},
     onChangeIsEdit: () => {},
-    onBlur: () => {}
+    onBlur: () => {},
+    onKeyPress: () => {}
 }
 
 export default Textarea;

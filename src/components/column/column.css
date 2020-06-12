@@ -13,10 +13,11 @@
 
 .column__column-header {
     font-weight: 600;
-    padding: 10px;
+    padding: 8px 10px 2px;;
 }
 
 .column__wrapper {
+    box-sizing: content-box;
     min-width: 272px;
     max-width: 272px;
 }
@@ -30,7 +31,7 @@
 
 .column-footer__new-card:hover {
     color: inherit;
-    background: rgba(0,0,0, 0.1);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .column__column-footer {
@@ -44,10 +45,26 @@
     content: "\271A";
 }
 
+.new-card {
+    padding: 8px 0;
+}
+
 .new-card__container-button {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.new-card textarea {
+    padding: 2px 8px 2px;
+}
+
+.container-button__button {
+    border-radius: 5px;
+}
+
+.container-button__button:hover {
+    background: rgba(255, 255, 255, 0.5);
 }
 
 .column__list-cards {
