@@ -1,49 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import Textarea from "../common_components/Textarea";
 import "./column.css";
 
-const Column = ({ column, onChangeColumn }) => {
-    const titleTextarea = useRef(null)
+
+const Column = ({ column, cards, comments, onChangeColumn }) => {
     const [isEditTitle, setIsEditTitle] = useState(false)
-
-    useEffect(() => {
-        return () => {
-            titleTextarea.current.removeEventListener("keyup", handleEventTextarea, false);
-        }
-    }, [])
-
-    const handleEventTextarea = (e) => {
-        if (e.keyCode === 13) {
-            setIsEditTitle(false)
-        } else if(e.target.scrollTop > 0){
-            e.target.style.height = e.target.scrollHeight + "px";
-        }
-    }
-
-    const handleOnDoubleClickTitle = e => {
-        setIsEditTitle(true)
-        titleTextarea.current.addEventListener("keyup", handleEventTextarea, false);
-    }
-
-    const handleOnChangeTextarea = (e) => onChangeColumn('title', e.target.value)
-    const handleOnKeyPressTextarea = (e) => {
-        if (!e.shiftKey && e.which === 13) {
-            e.preventDefault();
-        }
-    }
 
     return (
         <div className={'col column__wrapper'}>
             <div className={'column'}>
-                <div className={"column__header"}
-                    onDoubleClick={handleOnDoubleClickTitle}
-                >
-                    <textarea
-                        ref={titleTextarea}
-                        disabled={!isEditTitle}
-                        onKeyPress={handleOnKeyPressTextarea}
-                        onChange={handleOnChangeTextarea}
+                <div className={'column__column-header'}>
+                    <Textarea
                         value={column.title}
+                        isEdit={isEditTitle}
+                        onChangeValue={(value) => onChangeColumn('title', value)}
+                        onChangeIsEdit={(value) => setIsEditTitle(value)}
                     />
+                </div>
+                <div className={'column__list-cards'}>
+
+                </div>
+                <div className={'column__column-footer'}>
+                    <div
+                        className={'column-footer__new-card'}
+                    >
+                        Добавить еще одну карточку
+                    </div>
                 </div>
             </div>
         </div>

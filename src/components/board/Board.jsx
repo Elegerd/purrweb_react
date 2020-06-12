@@ -8,17 +8,24 @@ const Board = ({ title, columns, cards, comments, onChangeData }) => {
 
     return (
         <div className={'board__wrapper'}>
-            <div className={'board__header'}>
-                <div className={'board__title'}>{title}</div>
+            <div className={'board__board-header'}>
+                <div className={'board-header__title'}>{title}</div>
             </div>
             <div className={'board'}>
                 <div className="row">
-                    {columns.map(column => (
-                        <Column
-                            column={column}
-                            onChangeColumn={onChangeData('columns', column.id)}
-                        />
-                    ))}
+                    {columns.map(column => {
+                        const column_cards = cards.filter(card => card.column_id === column.id)
+                        const column_comments = comments.filter(comment => column_cards.map(card => card.id).includes(comment.card_id))
+                        return (
+                            <Column
+                                key={column.id}
+                                column={column}
+                                cards={column_cards}
+                                comments={column_comments}
+                                onChangeColumn={onChangeData('columns', column.id)}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </div>
@@ -31,6 +38,12 @@ Board.propsType = {
     cards: PropTypes.array,
     comments: PropTypes.array,
     onChangeData: PropTypes.func
+}
+
+Board.defaultProps = {
+    columns: [],
+    cards: [],
+    comments: []
 }
 
 export default Board;

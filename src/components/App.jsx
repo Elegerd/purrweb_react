@@ -8,19 +8,26 @@ import Popup from "./popup/Popup";
 export const NameContext = createContext();
 
 const App = () => {
+    const mounted = useRef();
     const nameInput = useRef(null);
     const [isOpenModalName, setIsOpenModalName] = useState(true)
     const [name, setName] = useState(null)
     const [applicationData, setApplicationData] = useState(initStateApplication)
 
     useEffect(() => {
-        const localData = JSON.parse(localStorage.getItem('purr_trello'))
-        if (localData)
-            setApplicationData(localData)
-        return () => {
-            localStorage.setItem('purr_trello', JSON.stringify(applicationData))
+        try {
+            if (!mounted.current) {
+                mounted.current = true;
+                const localData = JSON.parse(localStorage.getItem('purr_trello'))
+                if (localData)
+                    setApplicationData(localData)
+            } else {
+                localStorage.setItem('purr_trello', JSON.stringify(applicationData))
+            }
+        } catch (e) {
+            console.error(e)
         }
-    }, []);
+    });
 
     const handleOnSubmit = (e) => {
         setIsOpenModalName(false)
@@ -29,7 +36,7 @@ const App = () => {
 
     const renderPopupName = () => {
         return (
-            <Popup title={'Введите имя'}>
+            <Popup isOpen={isOpenModalName} title={'Введите имя'}>
                 <input
                     ref={nameInput}
                 />
@@ -66,7 +73,7 @@ const App = () => {
                     {...applicationData}
                 />
             </main>
-            {isOpenModalName && renderPopupName()}
+            {renderPopupName()}
         </NameContext.Provider>
     );
 };

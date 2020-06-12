@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./popup.css";
 
 
-const Popup = ({ title, className, onClose, children }) => {
+const Popup = ({ isOpen, title, className, onClose, children }) => {
 
     useEffect(() => {
         onClose && document.addEventListener("keydown", handleEscPress, false);
@@ -18,7 +18,7 @@ const Popup = ({ title, className, onClose, children }) => {
         }
     };
 
-    return (
+    return isOpen ?
         <div className={'popup__overlay'}>
             <div className={`popup ${className || ''}`}>
                 <div className={'popup__header'}>
@@ -36,10 +36,11 @@ const Popup = ({ title, className, onClose, children }) => {
                 </div>
             </div>
         </div>
-    );
+        : null;
 };
 
 Popup.propTypes = {
+    isOpen: PropTypes.bool,
     title: PropTypes.string,
     className: PropTypes.string,
     onClose: PropTypes.func
