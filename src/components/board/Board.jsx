@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./board.css";
 
 
-const Board = ({ title, columns, cards, comments, onChangeData }) => {
+const Board = ({ title, columns, cards, comments, onChangeData, onAddData, onRemoveData }) => {
 
     return (
         <div className={'board__wrapper'}>
@@ -23,6 +23,7 @@ const Board = ({ title, columns, cards, comments, onChangeData }) => {
                                 cards={column_cards}
                                 comments={column_comments}
                                 onChangeColumn={onChangeData('columns', column.id)}
+                                onAddCard={onAddData('cards', column.id)}
                             />
                         );
                     })}
@@ -37,7 +38,9 @@ Board.propsType = {
     columns: PropTypes.array,
     cards: PropTypes.array,
     comments: PropTypes.array,
-    onChangeData: PropTypes.func
+    onChangeData: PropTypes.func,
+    onAddData: PropTypes.func,
+    onRemoveData: PropTypes.func
 }
 
 Board.defaultProps = {

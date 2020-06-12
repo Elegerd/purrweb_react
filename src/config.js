@@ -16,5 +16,7 @@ export const initStateApplication = {
             id: 3,
             title: "Done"
         }
-    ]
+    ],
+    cards: [],
+    comments: []
 }

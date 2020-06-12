@@ -20,7 +20,7 @@ const App = () => {
                 mounted.current = true;
                 const localData = JSON.parse(localStorage.getItem('purr_trello'))
                 if (localData)
-                    setApplicationData(localData)
+                    setApplicationData(localData);
             } else {
                 localStorage.setItem('purr_trello', JSON.stringify(applicationData))
             }
@@ -47,7 +47,7 @@ const App = () => {
         );
     };
 
-    const handleOnChangeData = (dataType, id) => {
+    const onChangeData = (dataType, id) => {
         return (field, value) => {
             setApplicationData(prevState => ({
                 [dataType]: prevState[dataType].map(prevValue => {
@@ -63,13 +63,36 @@ const App = () => {
         };
     };
 
+    const onAddData = (dataType, column_id) => {
+        return (value) => {
+            setApplicationData(prevState => {
+                const ids = prevState[dataType].map(v => v.id)
+                const newId = ids.length > 0 ? Math.max(...ids) + 1 : 0;
+                return ({
+                    ...prevState,
+                    [dataType]: [...prevState[dataType], { id: newId, column_id, ...value }]
+                });
+            })
+        }
+    }
+
+    const onRemoveData = (dataType, id) => {
+        return (field, value) => {
+            setApplicationData(prevState => ({
+                [dataType]: prevState[dataType].filter(v => v.id !== id)
+            }))
+        };
+    }
+
     return (
         <NameContext.Provider value={name}>
             <Header/>
             <main>
                 <Board
                     title={'Основная доска'}
-                    onChangeData={handleOnChangeData}
+                    onChangeData={onChangeData}
+                    onAddData={onAddData}
+                    onRemoveData={onRemoveData}
                     {...applicationData}
                 />
             </main>

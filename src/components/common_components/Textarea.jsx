@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
 import PropTypes from "prop-types";
+import "./textarea.css";
 
 
-const Textarea = ({ value, isEdit, onChangeValue, onChangeIsEdit }) => {
+const Textarea = ({ value, isEdit, onChangeValue, onChangeIsEdit, onBlur }) => {
     const [height, setHeight] = useState(0)
     const textarea = useRef(null)
 
@@ -29,10 +30,10 @@ const Textarea = ({ value, isEdit, onChangeValue, onChangeIsEdit }) => {
         }
     }
 
-    const handleOnBlur = (e) => onChangeIsEdit(false)
+    const handleOnBlur = (e) => onBlur(false);
 
     return (
-        <div className={'textarea-container'} onDoubleClick={handleOnDoubleClick}>
+        <div className={'textarea-container'} onClick={handleOnDoubleClick}>
             <textarea
                 ref={textarea}
                 disabled={!isEdit}
@@ -51,7 +52,15 @@ Textarea.propTypes = {
     value: PropTypes.string,
     isEdit: PropTypes.bool,
     onChangeValue: PropTypes.func,
-    onChangeIsEdit: PropTypes.func
+    onChangeIsEdit: PropTypes.func,
+    onBlur: PropTypes.func
+}
+
+Textarea.defaultProps = {
+    isEdit: true,
+    onChangeValue: () => {},
+    onChangeIsEdit: () => {},
+    onBlur: () => {}
 }
 
 export default Textarea;
