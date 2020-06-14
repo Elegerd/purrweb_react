@@ -1,0 +1,17 @@
+html, body, #app {
+    height: 100%;
+}
+
+.btn {
+    font-size: inherit;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+main {
+    flex-grow: 1;
+}
