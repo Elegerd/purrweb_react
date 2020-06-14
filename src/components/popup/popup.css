@@ -23,14 +23,18 @@
     overflow: hidden;
 }
 
-.popup__header {
+.popup__content {
+    display: flex;
+}
+
+.popup__popup-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-.popup__close {
+.popup-header__close {
     cursor: pointer;
     margin-left: 10px;
 }

@@ -1,58 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {useState, useContext} from "react";
+import {DataContext} from "../App";
 import Textarea from "../common_components/Textarea";
+import TextareaGroup from "../common_components/TextareaGroup";
 import Card from "../card/Card";
+import PropTypes from "prop-types";
 import "./column.css";
 
 
-const Column = ({ column, cards, comments, onChangeColumn, onAddCard }) => {
-    const newCard = useRef()
-    const [newCardTitle, setNewCardTitle] = useState('')
+const Column = ({ column, cards, comments }) => {
+    const { onChangeData, onAddData } = useContext(DataContext)
     const [isEditTitle, setIsEditTitle] = useState(false)
     const [isAddingCard, setIsAddingCard] = useState(false)
 
+    const changeColumn = onChangeData('columns', column.id)
+    const addCard = onAddData('cards')
 
-    useEffect(() => {
-        document.addEventListener('click', handleOnClickNewCard)
-        return () => {
-            document.removeEventListener('click', handleOnClickNewCard)
-        }
-    }, [])
-
-    const handleOnClickNewCard = (e) => {
-        if (newCard.current && !newCard.current.contains(e.target)) {
-            setIsAddingCard(false)
-            setNewCardTitle('')
-        }
-    }
-
-    const handleOnClickButtonNewCard = (e) => {
-        if (newCardTitle.length) {
-            onAddCard({title: newCardTitle})
-            setIsAddingCard(false)
-            setNewCardTitle('')
-        }
-    }
-
-    const renderNewCard = () => {
-        return (
-            <div ref={newCard} className={'new-card'}>
-                <Textarea
-                    value={newCardTitle}
-                    placeholder={'Ввести заголовок для этой карточки'}
-                    onKeyPress={handleOnKeyPressCard}
-                    onChangeValue={(value) => setNewCardTitle(value)}
-                    onChangeIsEdit={(value) => setIsAddingCard(value)}
-                />
-                <div className={'new-card__container-button'}>
-                    <button
-                        onClick={handleOnClickButtonNewCard}
-                        className={'container-button__button'}
-                    >
-                        Добавить карточку
-                    </button>
-                </div>
-            </div>
-        );
+    const handleOnClickCard = (value) => {
+        if (value.length > 0)
+            addCard({title: value, column_id: column.id, description: ""})
+        setIsAddingCard(false)
     }
 
     const handleOnKeyPressTitle = e => {
@@ -62,12 +28,14 @@ const Column = ({ column, cards, comments, onChangeColumn, onAddCard }) => {
         }
     }
 
-    const handleOnKeyPressCard = e => {
-        if (!e.shiftKey && e.which === 13) {
-            onAddCard({title: newCardTitle})
-            setIsAddingCard(false)
-            setNewCardTitle('')
-        }
+    const renderNewCard = () => {
+        return (
+            <TextareaGroup
+                placeholder={'Ввести заголовок для этой карточки'}
+                titleButton={'Добавить карточку'}
+                onClick={handleOnClickCard}
+            />
+        );
     }
 
     return (
@@ -79,7 +47,7 @@ const Column = ({ column, cards, comments, onChangeColumn, onAddCard }) => {
                         isEdit={isEditTitle}
                         onBlur={(value) => setIsEditTitle(value)}
                         onKeyPress={handleOnKeyPressTitle}
-                        onChangeValue={(value) => onChangeColumn('title', value)}
+                        onChangeValue={(value) => changeColumn('title', value)}
                         onChangeIsEdit={(value) => setIsEditTitle(value)}
                     />
                 </div>
@@ -89,6 +57,7 @@ const Column = ({ column, cards, comments, onChangeColumn, onAddCard }) => {
                         return (
                             <Card
                                 key={card.id}
+                                columnTitle={column.title}
                                 card={card}
                                 comments={card_comments}
                             />
@@ -110,5 +79,16 @@ const Column = ({ column, cards, comments, onChangeColumn, onAddCard }) => {
         </div>
     );
 };
+
+Column.propTypes = {
+    column: PropTypes.object,
+    cards: PropTypes.array,
+    comments: PropTypes.array
+}
+
+Column.defaultProps = {
+    cards: [],
+    comments: []
+}
 
 export default Column;

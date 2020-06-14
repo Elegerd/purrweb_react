@@ -6,6 +6,7 @@ import Popup from "./popup/Popup";
 
 
 export const NameContext = createContext();
+export const DataContext = createContext();
 
 const App = () => {
     const mounted = useRef();
@@ -31,11 +32,11 @@ const App = () => {
 
     const handleOnSubmit = (e) => {
         setIsOpenModalName(false)
-        setName(nameInput.current.value)
+        setName(nameInput.current.value || 'Guest')
     };
 
     const renderPopupName = () => {
-        return (
+        return isOpenModalName && (
             <Popup isOpen={isOpenModalName} title={'Введите имя'}>
                 <input ref={nameInput} style={{height: "37px"}}/>
                 <button style={{marginLeft: "5px"}} className={'btn btn-secondary'} onClick={handleOnSubmit}>
@@ -48,6 +49,7 @@ const App = () => {
     const onChangeData = (dataType, id) => {
         return (field, value) => {
             setApplicationData(prevState => ({
+                ...prevState,
                 [dataType]: prevState[dataType].map(prevValue => {
                     if (prevValue.id === id)
                         return {
@@ -61,41 +63,39 @@ const App = () => {
         };
     };
 
-    const onAddData = (dataType, column_id) => {
+    const onAddData = (dataType) => {
         return (value) => {
             setApplicationData(prevState => {
                 const ids = prevState[dataType].map(v => v.id)
                 const newId = ids.length > 0 ? Math.max(...ids) + 1 : 0;
                 return ({
                     ...prevState,
-                    [dataType]: [...prevState[dataType], { id: newId, column_id, ...value }]
+                    [dataType]: [...prevState[dataType], { id: newId, ...value }]
                 });
             })
         }
     }
 
     const onRemoveData = (dataType, id) => {
-        return (field, value) => {
-            setApplicationData(prevState => ({
-                [dataType]: prevState[dataType].filter(v => v.id !== id)
-            }))
-        };
+        setApplicationData(prevState => ({
+            ...prevState,
+            [dataType]: prevState[dataType].filter(v => v.id !== id)
+        }))
     }
 
     return (
-        <NameContext.Provider value={name}>
-            <Header/>
-            <main>
-                <Board
-                    title={'Основная доска'}
-                    onChangeData={onChangeData}
-                    onAddData={onAddData}
-                    onRemoveData={onRemoveData}
-                    {...applicationData}
-                />
-            </main>
-            {renderPopupName()}
-        </NameContext.Provider>
+        <DataContext.Provider value={{onChangeData, onAddData, onRemoveData}}>
+            <NameContext.Provider value={name}>
+                <Header/>
+                <main>
+                    <Board
+                        title={'Основная доска'}
+                        {...applicationData}
+                    />
+                </main>
+                {renderPopupName()}
+            </NameContext.Provider>
+        </DataContext.Provider>
     );
 };
 

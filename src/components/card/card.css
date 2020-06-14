@@ -9,6 +9,64 @@
     background: rgba(255, 255, 255, 0.5);
 }
 
+.popup__card-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.card-modal {
+    width: 768px;
+}
+
+.card-modal__header {
+    margin: 5px 35px 5px 15px;
+}
+
+.card-modal__header textarea {
+    font-weight: 600;
+    font-size: 20px;
+    padding: 0 5px;
+}
+
+.card-modal__header > .header__column-title {
+    color: #5E6C84;
+    padding: 0 5px;
+}
+
+.card-modal__card-content {
+    padding: 15px 25px 5px 0;
+    margin: 0;
+}
+
+.card-content__main p {
+    padding-left: 5px;
+    margin-bottom: 10px;
+}
+
+.card-description__title,
+.card-comments__title,
+.card_action__creator {
+    font-weight: 600;
+}
+
+.card-modal__card-content textarea {
+    padding: 0 5px;
+}
+
+.card-description__fake-textarea {
+    cursor: pointer;
+}
+
+.card-content__card_action {
+    display: flex;
+    flex-direction: column;
+}
+
 .badges_comment {
     display: flex;
 }

@@ -9,9 +9,9 @@ const Header = () => {
     return (
         <header>
             {name &&
-            <div className={'header__name'}>
-                Здравствуйте, {name}
-            </div>
+                <div className={'header__name'}>
+                    Здравствуйте, {name}
+                </div>
             }
         </header>
     );

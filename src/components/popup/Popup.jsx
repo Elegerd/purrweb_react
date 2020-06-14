@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./popup.css";
 
 
-const Popup = ({ isOpen, title, className, onClose, children }) => {
+const Popup = ({ title, className, onClose, isDefaultHeader, children }) => {
 
     useEffect(() => {
         onClose && document.addEventListener("keydown", handleEscPress, false);
@@ -18,32 +18,45 @@ const Popup = ({ isOpen, title, className, onClose, children }) => {
         }
     };
 
-    return isOpen ?
+    const handleOnClickClose = e => {
+        e.preventDefault()
+        onClose()
+    }
+
+    return (
         <div className={'popup__overlay'}>
-            <div className={`popup ${className || ''}`}>
-                <div className={'popup__header'}>
-                    <div className={'popup__title'}>
-                        {title}
-                    </div>
-                    {onClose &&
-                        <div className={'popup__close'} onClick={onClose}>
+            <div className={`popup ${className}`}>
+                {isDefaultHeader &&
+                    <div className={'popup__popup-header'}>
+                        <div className={'popup-header__title'}>
+                            {title}
+                        </div>
+                        {onClose &&
+                        <div className={'popup-header__close'} onClick={handleOnClickClose}>
                             &#10006;
                         </div>
-                    }
-                </div>
+                        }
+                    </div>
+                }
                 <div className={'popup__content'}>
                     {children}
                 </div>
             </div>
         </div>
-        : null;
+    );
 };
 
 Popup.propTypes = {
-    isOpen: PropTypes.bool,
     title: PropTypes.string,
     className: PropTypes.string,
     onClose: PropTypes.func
+}
+
+Popup.defaultProps = {
+    title: '',
+    className: '',
+    onClose: null,
+    isDefaultHeader: true
 }
 
 export default Popup;

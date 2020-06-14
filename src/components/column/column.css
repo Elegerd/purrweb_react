@@ -55,16 +55,8 @@
     align-items: center;
 }
 
-.new-card textarea {
+.textarea-group textarea {
     padding: 2px 8px 2px;
-}
-
-.container-button__button {
-    border-radius: 5px;
-}
-
-.container-button__button:hover {
-    background: rgba(255, 255, 255, 0.5);
 }
 
 .column__list-cards {
