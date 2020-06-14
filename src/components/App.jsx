@@ -77,10 +77,17 @@ const App = () => {
     }
 
     const onRemoveData = (dataType, id) => {
-        setApplicationData(prevState => ({
-            ...prevState,
-            [dataType]: prevState[dataType].filter(v => v.id !== id)
-        }))
+        return (field) => {
+            setApplicationData(prevState => {
+                const keys = Object.keys(prevState)
+                const newState = {};
+                keys.forEach(key => {
+                    const keyId = dataType === key ? 'id' : `${field}_id`
+                    newState[key] = prevState[key].filter(value => value[keyId] !== id)
+                })
+                return newState;
+            })
+        }
     }
 
     return (

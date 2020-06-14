@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
 import {DataContext, NameContext} from "../App";
 import Popup from "../popup/Popup";
+import Comment from "../common_components/Comment";
 import Textarea from "../common_components/Textarea";
 import TextareaGroup from "../common_components/TextareaGroup";
 import "./card.css";
@@ -15,7 +16,8 @@ const Card = ({ columnTitle, card, comments }) => {
     const [isOpenModal, setIsOpenModal] = useState(false)
 
     const changeCard = onChangeData('cards', card.id);
-    const addComment = onAddData('comments')
+    const addComment = onAddData('comments');
+    const removeCard = onRemoveData('cards', card.id);
 
     const handleOnClickCloseModal = () => {
         setIsOpenModal(false)
@@ -39,11 +41,11 @@ const Card = ({ columnTitle, card, comments }) => {
 
     const handleOnClickAddNewComment = (value) => {
         if (value.length)
-            addComment({value, card_id: card.id, author: name})
+            addComment({value, card_id: card.id, author: name, date: new Date()})
         setIsNewComment(false)
     }
 
-    const handleOnClickRemoveCard = e => onRemoveData('cards', card.id)
+    const handleOnClickRemoveCard = e => removeCard('card')
 
     const renderDescription = () => {
         const placeholder = 'Добавить более подробное описание...'
@@ -54,24 +56,36 @@ const Card = ({ columnTitle, card, comments }) => {
                 titleButton={'Сохранить'}
                 onClick={handleOnClickSaveDescription}
             /> :
-            <p className={'card-description__fake-textarea'}
-               onClick={() => setIsEditDescription(true)}>
+            <p className={'card-description__fake-description'}
+               onClick={() => setIsEditDescription(true)}
+            >
                 {card.description || placeholder}
             </p>
     }
 
     const renderComments = () => {
         const placeholder = 'Напишите комментарий...'
-        return isNewComment ?
-            <TextareaGroup
-                placeholder={placeholder}
-                titleButton={'Сохранить'}
-                onClick={handleOnClickAddNewComment}
-            /> :
-            <p className={'card-description__fake-textarea'}
-               onClick={() => setIsNewComment(true)}>
-                {placeholder}
-            </p>
+        return (
+            <>
+                {isNewComment ?
+                    <TextareaGroup
+                        placeholder={placeholder}
+                        titleButton={'Сохранить'}
+                        onClick={handleOnClickAddNewComment}
+                    /> :
+                    <p className={'card-description__fake-comment'}
+                       onClick={() => setIsNewComment(true)}>
+                        {placeholder}
+                    </p>
+                }
+                {comments.map(comment => (
+                   <Comment
+                       key={comment.id}
+                       comment={comment}
+                   />
+                ))}
+            </>
+        );
     }
 
     const renderPopup = () => {
@@ -104,7 +118,7 @@ const Card = ({ columnTitle, card, comments }) => {
                                 {renderComments()}
                             </div>
                         </div>
-                        <div className="col card-content__card_action">
+                        <div className="col-auto card-content__card_action">
                             <p className={"card_action__creator"}>Создатель: {name}</p>
                             <button className={"btn btn-danger"} onClick={handleOnClickRemoveCard}>
                                 Удалить карточку
