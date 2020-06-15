@@ -7,10 +7,10 @@ const Board = ({ title, columns, cards, comments }) => {
   return (
     <div className={"board__wrapper"}>
       <div className={"board__board-header"}>
-        <div className={"board-header__title"}>{title}</div>
+        <h2 className={"board-header__title"}>{title}</h2>
       </div>
       <div className={"board"}>
-        <div className="row">
+        <div className={"row"}>
           {columns.map((column) => {
             const column_cards = cards.filter(
               (card) => card.column_id === column.id

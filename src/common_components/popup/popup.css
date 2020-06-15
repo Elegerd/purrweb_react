@@ -23,19 +23,3 @@
   margin: 30px 5px 80px;
   overflow: hidden;
 }
-
-.popup__content {
-  display: flex;
-}
-
-.popup__popup-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.popup-header__close {
-  cursor: pointer;
-  margin-left: 10px;
-}

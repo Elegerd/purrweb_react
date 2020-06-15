@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
-import TextareaGroup from "./TextareaGroup";
+import TextareaGroup from "../../common_components/textareaGroup/TextareaGroup";
 import { DataContext, NameContext } from "../App";
 import "./comment.css";
 
@@ -43,11 +43,19 @@ const Comment = ({ comment }) => {
           <>
             <div className={"comment-box__content"}>{comment.value}</div>
             {comment.author === name && (
-              <div className={"comment-box__action"}>
-                <a href="#" onClick={handleOnClickIsEdit}>
+              <div className={"comment-box__comment-action"}>
+                <a
+                  className={"comment-action__edit"}
+                  href="#"
+                  onClick={handleOnClickIsEdit}
+                >
                   Изменить
                 </a>
-                <a href="#" onClick={handleOnClickRemove}>
+                <a
+                  className={"comment-action__remove"}
+                  href="#"
+                  onClick={handleOnClickRemove}
+                >
                   Удалить
                 </a>
               </div>
@@ -63,7 +71,7 @@ Comment.propTypes = {
   comment: PropTypes.shape({
     id: PropTypes.number,
     author: PropTypes.string,
-    date: PropTypes.instanceOf(Date),
+    date: PropTypes.date,
     value: PropTypes.string,
   }),
 };

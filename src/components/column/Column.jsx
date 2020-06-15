@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { DataContext } from "../App";
-import Textarea from "../common_components/Textarea";
-import TextareaGroup from "../common_components/TextareaGroup";
+import Textarea from "../../common_components/textarea/Textarea";
+import TextareaGroup from "../../common_components/textareaGroup/TextareaGroup";
 import Card from "../card/Card";
 import PropTypes from "prop-types";
 import "./column.css";
@@ -22,8 +22,8 @@ const Column = ({ column, cards, comments }) => {
 
   const handleOnKeyPressTitle = (e) => {
     if (!e.shiftKey && e.which === 13) {
-      setIsEditTitle(false);
       e.preventDefault();
+      setIsEditTitle(false);
     }
   };
 
@@ -37,10 +37,15 @@ const Column = ({ column, cards, comments }) => {
     );
   };
 
+  const handleOnClickNewCard = (e) => {
+    e.stopPropagation();
+    setIsAddingCard(true);
+  };
+
   return (
     <div className={"col column__wrapper"}>
       <div className={"column"}>
-        <div className={"column__column-header"}>
+        <header className={"column__column-header"}>
           <Textarea
             value={column.title}
             isEdit={isEditTitle}
@@ -49,7 +54,7 @@ const Column = ({ column, cards, comments }) => {
             onChangeValue={(value) => changeColumn("title", value)}
             onChangeIsEdit={(value) => setIsEditTitle(value)}
           />
-        </div>
+        </header>
         <div className={"column__list-cards"}>
           {cards.map((card) => {
             const card_comments = comments.filter(
@@ -65,18 +70,22 @@ const Column = ({ column, cards, comments }) => {
             );
           })}
         </div>
-        <div className={"column__column-footer"}>
+        <footer className={"column__column-footer"}>
           {isAddingCard ? (
             renderNewCard()
           ) : (
             <div
-              className={"column-footer__new-card"}
-              onClick={(e) => setIsAddingCard(true)}
+              className={"column-footer__button"}
+              onClick={handleOnClickNewCard}
             >
-              Добавить еще одну карточку
+              <input
+                type={"button"}
+                onClick={handleOnClickNewCard}
+                value={"Добавить еще одну карточку"}
+              />
             </div>
           )}
-        </div>
+        </footer>
       </div>
     </div>
   );

@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef, createContext } from "react";
 import { initStateApplication } from "../config";
 import Header from "./header/Header";
 import Board from "./board/Board";
-import Popup from "./popup/Popup";
+import Popup from "../common_components/popup/Popup";
+import { getNewId, getData, setData, getUser, setUser } from "../utils";
+import "./app.css";
 
 export const NameContext = createContext();
 export const DataContext = createContext();
@@ -10,18 +12,24 @@ export const DataContext = createContext();
 const App = () => {
   const mounted = useRef();
   const nameInput = useRef(null);
-  const [isOpenModalName, setIsOpenModalName] = useState(true);
-  const [name, setName] = useState(null);
+  const [isOpenModalName, setIsOpenModalName] = useState(false);
   const [applicationData, setApplicationData] = useState(initStateApplication);
+  const [activeUser, setActiveUser] = useState("");
 
   useEffect(() => {
     try {
       if (!mounted.current) {
         mounted.current = true;
-        const localData = JSON.parse(localStorage.getItem("purr_trello"));
+        const localData = getData();
+        const localUser = getUser();
         if (localData) setApplicationData(localData);
+        if (localUser) {
+          setActiveUser(localUser);
+        } else {
+          setIsOpenModalName(true);
+        }
       } else {
-        localStorage.setItem("purr_trello", JSON.stringify(applicationData));
+        setData(applicationData);
       }
     } catch (e) {
       console.error(e);
@@ -29,22 +37,33 @@ const App = () => {
   });
 
   const handleOnSubmit = (e) => {
+    const user = nameInput.current.value || "Guest";
     setIsOpenModalName(false);
-    setName(nameInput.current.value || "Guest");
+    setActiveUser(user);
+    setUser(user);
+  };
+
+  const handleOnClickLogout = () => {
+    setActiveUser("");
+    setIsOpenModalName(true);
+    setUser(null);
   };
 
   const renderPopupName = () => {
     return (
       isOpenModalName && (
-        <Popup isOpen={isOpenModalName} title={"Введите имя"}>
-          <input ref={nameInput} style={{ height: "37px" }} />
-          <button
-            style={{ marginLeft: "5px" }}
-            className={"btn btn-secondary"}
-            onClick={handleOnSubmit}
-          >
-            Принять
-          </button>
+        <Popup>
+          <div className={"popup__modal-name"}>
+            <div className={"modal-name__header"}>
+              <h2>Введите имя</h2>
+            </div>
+            <div className={"modal-name__content"}>
+              <input ref={nameInput} />
+              <button className={"btn btn-secondary"} onClick={handleOnSubmit}>
+                Принять
+              </button>
+            </div>
+          </div>
         </Popup>
       )
     );
@@ -69,8 +88,7 @@ const App = () => {
   const onAddData = (dataType) => {
     return (value) => {
       setApplicationData((prevState) => {
-        const ids = prevState[dataType].map((v) => v.id);
-        const newId = ids.length > 0 ? Math.max(...ids) + 1 : 0;
+        const newId = getNewId(prevState[dataType].map((v) => v.id));
         return {
           ...prevState,
           [dataType]: [...prevState[dataType], { id: newId, ...value }],
@@ -95,8 +113,8 @@ const App = () => {
 
   return (
     <DataContext.Provider value={{ onChangeData, onAddData, onRemoveData }}>
-      <NameContext.Provider value={name}>
-        <Header />
+      <NameContext.Provider value={activeUser}>
+        <Header onClickLogout={handleOnClickLogout} />
         <main>
           <Board title={"Основная доска"} {...applicationData} />
         </main>

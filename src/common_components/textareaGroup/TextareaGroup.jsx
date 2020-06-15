@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Textarea from "./Textarea";
+import Textarea from "../textarea/Textarea";
 import PropTypes from "prop-types";
 import "./textareagroup.css";
 

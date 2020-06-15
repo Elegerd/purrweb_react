@@ -5,15 +5,16 @@
   border-radius: 5px;
 }
 
+.column__column-header {
+  font-weight: 600;
+  padding: 8px 10px 2px;
+  border: none;
+}
+
 .column__column-header textarea {
   font-weight: 600;
   padding-left: 5px;
   padding-right: 5px;
-}
-
-.column__column-header {
-  font-weight: 600;
-  padding: 8px 10px 2px;
 }
 
 .column__wrapper {
@@ -22,16 +23,20 @@
   max-width: 272px;
 }
 
-.column-footer__new-card {
+.column-footer__button {
   padding: 5px 0;
   color: #5e6c84;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.column-footer__new-card:hover {
+.column-footer__button:hover {
   color: inherit;
   background: rgba(0, 0, 0, 0.1);
+}
+
+.column-footer__button > input:hover {
+  background: transparent;
 }
 
 .column__column-footer {
@@ -39,10 +44,15 @@
   padding: 0 5px;
 }
 
-.column__column-footer > .column-footer__new-card::before {
-  margin-left: 5px;
-  margin-right: 5px;
+.column__column-footer > .column-footer__button::before {
+  margin-left: 8px;
   content: "\271A";
+}
+
+.column-footer__button > input {
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 .new-card {

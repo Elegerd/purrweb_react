@@ -14,7 +14,15 @@
   word-break: break-word;
 }
 
-.comment-box__action a {
+.comment-box__comment-action a {
   font-size: 12px;
   padding: 0 5px;
+}
+
+.comment-action__remove {
+  color: #dc3545;
+}
+
+.comment-action__remove:hover {
+  color: rgba(220, 53, 69, 0.8);
 }

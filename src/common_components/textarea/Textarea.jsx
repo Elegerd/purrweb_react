@@ -36,7 +36,7 @@ const Textarea = ({
   const handleOnKeyPress = (e) => onKeyPress(e);
 
   return (
-    <div className={"textarea-container"} onClick={handleOnClick}>
+    <label className={"textarea-container"} onClick={handleOnClick}>
       <textarea
         ref={textarea}
         disabled={!isEdit}
@@ -48,7 +48,7 @@ const Textarea = ({
         value={value}
         placeholder={placeholder}
       />
-    </div>
+    </label>
   );
 };
 

@@ -1,0 +1,22 @@
+.popup__modal-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-name__header > h2 {
+  font-size: inherit;
+}
+
+.modal-name__content {
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-name__content > input,
+.modal-name__content > button {
+  height: 35px;
+}
+
+.modal-name__content > button {
+  margin-left: 5px;
+}

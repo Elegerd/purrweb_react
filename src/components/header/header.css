@@ -1,9 +1,10 @@
 header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
   height: 46px;
-  padding: 2px;
+  padding: 2px 15px;
   flex: 0 0 auto;
   background: #ebecf0;
   border-bottom-width: 1px;
@@ -11,7 +12,12 @@ header {
   border-bottom-color: #e6e6e6;
 }
 
-header > .header__name {
+header > .header__name,
+header > .header__logout,
+header > .header__login {
+  color: inherit;
+  font-size: inherit;
   font-weight: 600;
-  padding: 0 10px;
+  padding: 0 5px;
+  margin: 0;
 }
