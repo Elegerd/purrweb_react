@@ -54,10 +54,13 @@ const Textarea = ({
 
 Textarea.propTypes = {
   value: PropTypes.string,
+  placeholder: PropTypes.string,
+  autoFocus: PropTypes.bool,
   isEdit: PropTypes.bool,
   onChangeValue: PropTypes.func,
   onChangeIsEdit: PropTypes.func,
   onBlur: PropTypes.func,
+  onKeyPress: PropTypes.func,
 };
 
 Textarea.defaultProps = {

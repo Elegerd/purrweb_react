@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { DataContext, NameContext } from "../App";
 import Popup from "../popup/Popup";
 import Comment from "../common_components/Comment";
@@ -151,6 +151,17 @@ const Card = ({ columnTitle, card, comments }) => {
       {isOpenModal && renderPopup()}
     </>
   );
+};
+
+Card.propTypes = {
+  columnTitle: PropTypes.string,
+  card: PropTypes.shape({
+    id: PropTypes.number,
+    column_id: PropTypes.number,
+    title: PropTypes.string,
+    destination: PropTypes.string,
+  }),
+  comments: PropTypes.array,
 };
 
 export default Card;

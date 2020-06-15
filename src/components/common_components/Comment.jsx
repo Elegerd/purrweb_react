@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import TextareaGroup from "./TextareaGroup";
 import { DataContext, NameContext } from "../App";
@@ -11,7 +11,6 @@ const Comment = ({ comment }) => {
 
   const changeComment = onChangeData("comments", comment.id);
   const removeComment = onRemoveData("comments", comment.id);
-
   const handleOnClickRemove = (e) => {
     e.preventDefault();
     removeComment("comment");
@@ -61,7 +60,12 @@ const Comment = ({ comment }) => {
 };
 
 Comment.propTypes = {
-  comment: PropTypes.object,
+  comment: PropTypes.shape({
+    id: PropTypes.number,
+    author: PropTypes.string,
+    date: PropTypes.instanceOf(Date),
+    value: PropTypes.string,
+  }),
 };
 
 Comment.defaultProps = {};

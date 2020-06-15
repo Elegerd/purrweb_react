@@ -83,7 +83,10 @@ const Column = ({ column, cards, comments }) => {
 };
 
 Column.propTypes = {
-  column: PropTypes.object,
+  column: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+  }),
   cards: PropTypes.array,
   comments: PropTypes.array,
 };

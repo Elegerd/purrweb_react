@@ -47,6 +47,8 @@ Popup.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
   onClose: PropTypes.func,
+  isDefaultHeader: PropTypes.bool,
+  children: PropTypes.element.isRequired,
 };
 
 Popup.defaultProps = {

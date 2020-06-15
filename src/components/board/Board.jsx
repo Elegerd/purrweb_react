@@ -33,14 +33,11 @@ const Board = ({ title, columns, cards, comments }) => {
   );
 };
 
-Board.propsType = {
+Board.propTypes = {
   title: PropTypes.string,
   columns: PropTypes.array,
   cards: PropTypes.array,
   comments: PropTypes.array,
-  onChangeData: PropTypes.func,
-  onAddData: PropTypes.func,
-  onRemoveData: PropTypes.func,
 };
 
 Board.defaultProps = {
