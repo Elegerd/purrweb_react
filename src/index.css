@@ -1,17 +1,19 @@
-html, body, #app {
-    height: 100%;
+html,
+body,
+#app {
+  height: 100%;
 }
 
 .btn {
-    font-size: inherit;
+  font-size: inherit;
 }
 
 #app {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
 }
 
 main {
-    flex-grow: 1;
+  flex-grow: 1;
 }

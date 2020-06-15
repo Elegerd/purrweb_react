@@ -1,20 +1,20 @@
 .comment {
-    padding: 8px 0;
+  padding: 8px 0;
 }
 
 .comment__author {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .comment-box__content {
-    margin: 5px 0;
-    padding: 8px 12px;
-    background: #EBECF0;
-    border-radius: 2px;
-    word-break: break-word;
+  margin: 5px 0;
+  padding: 8px 12px;
+  background: #ebecf0;
+  border-radius: 2px;
+  word-break: break-word;
 }
 
 .comment-box__action a {
-    font-size: 12px;
-    padding: 0 5px;
+  font-size: 12px;
+  padding: 0 5px;
 }
