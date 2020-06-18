@@ -1,0 +1,19 @@
+.textarea-container {
+  display: block;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.textarea-container textarea {
+  color: inherit;
+  overflow: hidden;
+  resize: none;
+  width: 100%;
+}
+
+.textarea-container textarea[disabled] {
+  cursor: pointer;
+  color: inherit;
+  background: transparent;
+  border-color: transparent;
+}

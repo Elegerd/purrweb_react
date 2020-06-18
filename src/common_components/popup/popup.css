@@ -1,0 +1,25 @@
+.popup__overlay {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.popup {
+  position: relative;
+  width: max-content;
+  background-color: white;
+  border-radius: 2px;
+  padding: 10px;
+  margin: 30px 5px 80px;
+  overflow: hidden;
+}

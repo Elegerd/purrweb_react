@@ -1,96 +1,47 @@
 .card {
-    padding: 5px;
-    margin: 5px 0;
-    box-shadow: 0 1px 0 rgba(10, 30, 60, 0.25);
-    cursor: pointer;
+  padding: 5px;
+  margin: 5px 0;
+  box-shadow: 0 1px 0 rgba(10, 30, 60, 0.25);
+  cursor: pointer;
 }
 
 .card:hover {
-    background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .popup__card-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    overflow: hidden;
-    margin: 10px;
-    cursor: pointer;
-    font-size: 18px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: none;
+  color: inherit;
 }
 
-.card-modal {
-    width: 768px;
+.popup__card-close:active,
+.popup__card-close:hover
+{
+  text-decoration: none;
+  color: inherit;
 }
 
-.card-modal__header {
-    margin: 5px 35px 5px 15px;
-}
-
-.card-modal__header textarea {
-    font-weight: 600;
-    font-size: 20px;
-    padding: 0 5px;
-}
-
-.card-modal__header > .header__column-title {
-    color: #5E6C84;
-    padding: 0 5px;
-}
-
-.card-modal__card-content {
-    padding: 15px 25px 15px 0;
-    margin: 0;
-}
-
-.card-content__main p {
-    padding-left: 5px;
-    margin-bottom: 10px;
-}
-
-.card-description__title,
-.card-comments__title,
-.card_action__creator {
-    font-weight: 600;
-}
-
-.card-modal__card-content textarea {
-    padding: 0 5px;
-}
-
-.card-description__fake-description {
-    cursor: pointer;
-}
-
-.card-description__fake-comment {
-    cursor: pointer;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #767676;
-    border-radius: 2px;
-    color: #757575;
-    padding: 2px 8px 0;
-}
-
-.card-content__card_action {
-    display: flex;
-    flex-direction: column;
-}
-
-@media only screen and (max-width: 750px) {
-    .card-modal__card-content {
-        flex-direction: column;
-    }
-    .card-content__main {
-        max-width: 100%;
-    }
+.card__title > h2 {
+  font-size: inherit;
+  margin-bottom: 2px;
 }
 
 .badges_comment {
-    display: flex;
+  display: flex;
 }
 
 .badges_comment::before {
-    margin: 0 5px;
-    content: '\270E';
+  margin: 0 5px;
+  content: "\270E";
+}
+
+.popup__card-close::before {
+  content: "\2716";
 }

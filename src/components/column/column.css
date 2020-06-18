@@ -1,65 +1,75 @@
 .column {
-    display: flex;
-    flex-direction: column;
-    background: #EBECF0;
-    border-radius: 5px;
-}
-
-.column__column-header textarea {
-    font-weight: 600;
-    padding-left: 5px;
-    padding-right: 5px;
+  display: flex;
+  flex-direction: column;
+  background: #ebecf0;
+  border-radius: 5px;
 }
 
 .column__column-header {
-    font-weight: 600;
-    padding: 8px 10px 2px;;
+  font-weight: 600;
+  padding: 8px 10px 2px;
+  border: none;
+}
+
+.column__column-header textarea {
+  font-weight: 600;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .column__wrapper {
-    box-sizing: content-box;
-    min-width: 272px;
-    max-width: 272px;
+  box-sizing: content-box;
+  min-width: 272px;
+  max-width: 272px;
 }
 
-.column-footer__new-card {
-    padding: 5px 0;
-    color: #5E6C84;
-    border-radius: 5px;
-    cursor: pointer;
+.column-footer__button {
+  padding: 5px 0;
+  color: #5e6c84;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.column-footer__new-card:hover {
-    color: inherit;
-    background: rgba(0, 0, 0, 0.1);
+.column-footer__button:hover {
+  color: inherit;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.column-footer__button > input:hover {
+  background: transparent;
 }
 
 .column__column-footer {
-    margin: 0 5px 8px;
-    padding: 0 5px;
+  margin: 0 5px 8px;
+  padding: 0 5px;
 }
 
-.column__column-footer > .column-footer__new-card::before {
-    margin-left: 5px;
-    margin-right: 5px;
-    content: "\271A";
+.column__column-footer > .column-footer__button::before {
+  margin-left: 8px;
+  content: "\271A";
+}
+
+.column-footer__button > input {
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 .new-card {
-    padding: 8px 0;
+  padding: 8px 0;
 }
 
 .new-card__container-button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .textarea-group textarea {
-    padding: 2px 8px 2px;
+  padding: 2px 8px 2px;
 }
 
 .column__list-cards {
-    margin: 0 5px;
-    padding: 0 5px;
+  margin: 0 5px;
+  padding: 0 5px;
 }

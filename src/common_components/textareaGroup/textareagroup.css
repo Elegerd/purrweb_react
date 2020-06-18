@@ -1,0 +1,10 @@
+.textarea-group {
+  padding: 8px 0;
+}
+
+.textarea-group__container-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 0;
+}

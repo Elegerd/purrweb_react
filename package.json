@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prettier": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "build": "webpack --mode production"
   },
   "author": {
@@ -23,8 +26,17 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
+    "eslint": "^7.2.0",
+    "eslint-config-babel": "^9.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-standard": "^4.0.1",
     "html-webpack-plugin": "^3.2.0",
+    "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.5",

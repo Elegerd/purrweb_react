@@ -1,0 +1,28 @@
+.comment {
+  padding: 8px 0;
+}
+
+.comment__author {
+  font-weight: 600;
+}
+
+.comment-box__content {
+  margin: 5px 0;
+  padding: 8px 12px;
+  background: #ebecf0;
+  border-radius: 2px;
+  word-break: break-word;
+}
+
+.comment-box__comment-action a {
+  font-size: 12px;
+  padding: 0 5px;
+}
+
+.comment-action__remove {
+  color: #dc3545;
+}
+
+.comment-action__remove:hover {
+  color: rgba(220, 53, 69, 0.8);
+}

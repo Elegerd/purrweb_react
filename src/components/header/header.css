@@ -1,17 +1,23 @@
 header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 46px;
-    padding: 2px;
-    flex: 0 0 auto;
-    background: #EBECF0;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #E6E6E6;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  height: 46px;
+  padding: 2px 15px;
+  flex: 0 0 auto;
+  background: #ebecf0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #e6e6e6;
 }
 
-header > .header__name {
-    font-weight: 600;
-    padding: 0 10px;
+header > .header__name,
+header > .header__logout,
+header > .header__login {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  padding: 0 5px;
+  margin: 0;
 }
