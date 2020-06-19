@@ -22,8 +22,7 @@
 }
 
 .popup__card-close:active,
-.popup__card-close:hover
-{
+.popup__card-close:hover {
   text-decoration: none;
   color: inherit;
 }

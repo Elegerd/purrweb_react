@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef, createContext } from "react";
+import { Provider } from "react-redux";
 import { initStateApplication } from "../config";
+import rootSaga from "../sagas";
+import configureStore from "../configureStore.js";
 import Header from "./header/Header";
 import Board from "./board/Board";
 import Popup from "../common_components/popup/Popup";
@@ -8,6 +11,9 @@ import "./app.css";
 
 export const NameContext = createContext();
 export const DataContext = createContext();
+
+const store = configureStore();
+store.runSaga(rootSaga);
 
 const App = () => {
   const mounted = useRef();
@@ -112,15 +118,17 @@ const App = () => {
   };
 
   return (
-    <DataContext.Provider value={{ onChangeData, onAddData, onRemoveData }}>
-      <NameContext.Provider value={activeUser}>
-        <Header onClickLogout={handleOnClickLogout} />
-        <main>
-          <Board title={"Основная доска"} {...applicationData} />
-        </main>
-        {renderPopupName()}
-      </NameContext.Provider>
-    </DataContext.Provider>
+    <Provider store={store}>
+      <DataContext.Provider value={{ onChangeData, onAddData, onRemoveData }}>
+        <NameContext.Provider value={activeUser}>
+          <Header onClickLogout={handleOnClickLogout} />
+          <main>
+            <Board title={"Основная доска"} {...applicationData} />
+          </main>
+          {renderPopupName()}
+        </NameContext.Provider>
+      </DataContext.Provider>
+    </Provider>
   );
 };
 

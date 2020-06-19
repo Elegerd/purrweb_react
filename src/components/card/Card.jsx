@@ -7,7 +7,7 @@ import "./card.css";
 const Card = ({ columnTitle, card, comments }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleOnClickCloseModal = (e) => {
+  const handleOnClickCloseMoal = (e) => {
     e.preventDefault();
     setIsOpenModal(false);
   };
