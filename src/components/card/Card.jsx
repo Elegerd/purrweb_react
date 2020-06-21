@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import Popup from "../../common_components/popup/Popup";
-import CardDetail from "../cardDetail/CardDetail";
+import { useSelector } from "react-redux";
+import Popup from "@common_components/popup/Popup";
+import CardDetail from "@components/cardDetail/CardDetail";
+import { getObjectsById } from "@utils";
 import PropTypes from "prop-types";
 import "./card.css";
 
-const Card = ({ columnTitle, card, comments }) => {
+const Card = ({ columnTitle, card }) => {
+  const comments = useSelector((state) =>
+    getObjectsById(card.id, "card_id", state.data.comments)
+  );
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleOnClickCloseMoal = (e) => {
+  const handleOnClickCloseModal = (e) => {
     e.preventDefault();
     setIsOpenModal(false);
   };
@@ -58,7 +63,6 @@ Card.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
   }),
-  comments: PropTypes.array,
 };
 
 export default Card;

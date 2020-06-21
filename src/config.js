@@ -1,4 +1,4 @@
-export const initStateApplication = {
+export const initDataApplication = {
   columns: [
     {
       id: 0,

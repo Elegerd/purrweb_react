@@ -9,10 +9,9 @@ const Textarea = ({
   isEdit,
   onChangeValue,
   onChangeIsEdit,
-  onBlur,
-  onKeyPress,
 }) => {
   const [height, setHeight] = useState(0);
+  const [valueTextarea, setValueTextarea] = useState(value);
   const textarea = useRef(null);
 
   useEffect(() => {
@@ -24,16 +23,26 @@ const Textarea = ({
     }
   });
 
-  const handleOnBlur = (e) => onBlur(false);
+  const handleOnBlur = (e) => {
+    e.preventDefault();
+    onChangeValue(valueTextarea);
+    onChangeIsEdit(false);
+  };
 
-  const handleOnChange = (e) => onChangeValue(e.target.value);
+  const handleOnChange = (e) => setValueTextarea(e.target.value);
 
   const handleOnClick = (e) => {
     e.preventDefault();
     onChangeIsEdit(true);
   };
 
-  const handleOnKeyPress = (e) => onKeyPress(e);
+  const handleOnKeyPress = (e) => {
+    if (!e.shiftKey && e.which === 13) {
+      e.preventDefault();
+      onChangeValue(valueTextarea);
+      onChangeIsEdit(false);
+    }
+  };
 
   return (
     <label className={"textarea-container"} onClick={handleOnClick}>
@@ -45,7 +54,7 @@ const Textarea = ({
         onChange={handleOnChange}
         onBlur={handleOnBlur}
         style={{ height: `${height}px` }}
-        value={value}
+        value={valueTextarea}
         placeholder={placeholder}
       />
     </label>
@@ -59,8 +68,6 @@ Textarea.propTypes = {
   isEdit: PropTypes.bool,
   onChangeValue: PropTypes.func,
   onChangeIsEdit: PropTypes.func,
-  onBlur: PropTypes.func,
-  onKeyPress: PropTypes.func,
 };
 
 Textarea.defaultProps = {
@@ -69,8 +76,6 @@ Textarea.defaultProps = {
   placeholder: "",
   onChangeValue: () => {},
   onChangeIsEdit: () => {},
-  onBlur: () => {},
-  onKeyPress: () => {},
 };
 
 export default Textarea;

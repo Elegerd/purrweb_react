@@ -1,30 +1,35 @@
-import React, { useState, useContext } from "react";
-import { DataContext } from "../App";
-import Textarea from "../../common_components/textarea/Textarea";
-import TextareaGroup from "../../common_components/textareaGroup/TextareaGroup";
-import Card from "../card/Card";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Textarea from "@common_components/textarea/Textarea";
+import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
+import Card from "@components/card/Card";
+import { addCard, patchColumn } from "@routines";
+import { getObjectsById } from "@utils";
 import PropTypes from "prop-types";
 import "./column.css";
 
-const Column = ({ column, cards, comments }) => {
-  const { onChangeData, onAddData } = useContext(DataContext);
+const Column = ({ column }) => {
+  const dispatch = useDispatch();
+  const { name } = useSelector((state) => state.auth);
+  const cards = useSelector((state) =>
+    getObjectsById(column.id, "column_id", state.data.cards)
+  );
+
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
 
-  const changeColumn = onChangeData("columns", column.id);
-  const addCard = onAddData("cards");
+  const onChangeColumn = (id, data) => dispatch(patchColumn({ id, data }));
+  const onAddCard = (newCard) => dispatch(addCard(newCard));
 
   const handleOnClickCard = (value) => {
     if (value.length > 0)
-      addCard({ title: value, column_id: column.id, description: "" });
+      onAddCard({
+        title: value,
+        column_id: column.id,
+        author: name,
+        description: "",
+      });
     setIsAddingCard(false);
-  };
-
-  const handleOnKeyPressTitle = (e) => {
-    if (!e.shiftKey && e.which === 13) {
-      e.preventDefault();
-      setIsEditTitle(false);
-    }
   };
 
   const renderNewCard = () => {
@@ -49,24 +54,18 @@ const Column = ({ column, cards, comments }) => {
           <Textarea
             value={column.title}
             isEdit={isEditTitle}
-            onBlur={(value) => setIsEditTitle(value)}
-            onKeyPress={handleOnKeyPressTitle}
-            onChangeValue={(value) => changeColumn("title", value)}
+            onBlur={() => setIsEditTitle(false)}
+            onKeyPress={() => setIsEditTitle(false)}
+            onChangeValue={(value) =>
+              onChangeColumn(column.id, { title: value })
+            }
             onChangeIsEdit={(value) => setIsEditTitle(value)}
           />
         </header>
         <div className={"column__list-cards"}>
           {cards.map((card) => {
-            const card_comments = comments.filter(
-              (comment) => comment.card_id === card.id
-            );
             return (
-              <Card
-                key={card.id}
-                columnTitle={column.title}
-                card={card}
-                comments={card_comments}
-              />
+              <Card key={card.id} columnTitle={column.title} card={card} />
             );
           })}
         </div>
@@ -96,13 +95,6 @@ Column.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
   }),
-  cards: PropTypes.array,
-  comments: PropTypes.array,
-};
-
-Column.defaultProps = {
-  cards: [],
-  comments: [],
 };
 
 export default Column;

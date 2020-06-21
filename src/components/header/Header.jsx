@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { NameContext } from "../App";
+import React from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import "./header.css";
 
 const Header = ({ onClickLogout }) => {
-  const name = useContext(NameContext);
+  const { name } = useSelector((state) => state.auth);
   const handleOnClickLogout = (e) => {
     e.preventDefault();
     onClickLogout();

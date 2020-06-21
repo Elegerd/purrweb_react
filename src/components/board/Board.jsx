@@ -1,9 +1,12 @@
 import React from "react";
-import Column from "../column/Column";
+import { useSelector } from "react-redux";
+import Column from "@components/column/Column";
 import PropTypes from "prop-types";
 import "./board.css";
 
-const Board = ({ title, columns, cards, comments }) => {
+const Board = ({ title }) => {
+  const { columns } = useSelector((state) => state.data);
+
   return (
     <div className={"board__wrapper"}>
       <div className={"board__board-header"}>
@@ -12,20 +15,7 @@ const Board = ({ title, columns, cards, comments }) => {
       <div className={"board"}>
         <div className={"row"}>
           {columns.map((column) => {
-            const column_cards = cards.filter(
-              (card) => card.column_id === column.id
-            );
-            const column_comments = comments.filter((comment) =>
-              column_cards.map((card) => card.id).includes(comment.card_id)
-            );
-            return (
-              <Column
-                key={column.id}
-                column={column}
-                cards={column_cards}
-                comments={column_comments}
-              />
-            );
+            return <Column key={column.id} column={column} />;
           })}
         </div>
       </div>
@@ -35,15 +25,6 @@ const Board = ({ title, columns, cards, comments }) => {
 
 Board.propTypes = {
   title: PropTypes.string,
-  columns: PropTypes.array,
-  cards: PropTypes.array,
-  comments: PropTypes.array,
-};
-
-Board.defaultProps = {
-  columns: [],
-  cards: [],
-  comments: [],
 };
 
 export default Board;
