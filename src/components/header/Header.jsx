@@ -1,10 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import "./header.css";
 
-const Header = ({ onClickLogout }) => {
-  const { name } = useSelector((state) => state.auth);
+const Header = ({ name, onClickLogout }) => {
   const handleOnClickLogout = (e) => {
     e.preventDefault();
     onClickLogout();
@@ -29,6 +27,7 @@ const Header = ({ onClickLogout }) => {
 };
 
 Header.propTypes = {
+  name: PropTypes.string,
   onClickLogout: PropTypes.func,
 };
 

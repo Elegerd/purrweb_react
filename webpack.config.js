@@ -15,6 +15,7 @@ module.exports = {
       "@reducers": path.resolve(__dirname, "src/reducers"),
       "@routines": path.resolve(__dirname, "src/routines"),
       "@sagas": path.resolve(__dirname, "src/sagas"),
+      "@selectors": path.resolve(__dirname, "src/selectors"),
       "@utils": path.resolve(__dirname, "src/utils"),
     },
     extensions: [".js", ".jsx"],

@@ -4,16 +4,14 @@ import Textarea from "@common_components/textarea/Textarea";
 import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
 import Card from "@components/card/Card";
 import { addCard, patchColumn } from "@routines";
-import { getObjectsById } from "@utils";
+import selectorCard from "@selectors/selector_cards";
 import PropTypes from "prop-types";
 import "./column.css";
 
 const Column = ({ column }) => {
   const dispatch = useDispatch();
   const { name } = useSelector((state) => state.auth);
-  const cards = useSelector((state) =>
-    getObjectsById(column.id, "column_id", state.data.cards)
-  );
+  const cards = useSelector((state) => selectorCard(state.data, column));
 
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);

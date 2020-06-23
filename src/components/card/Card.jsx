@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Popup from "@common_components/popup/Popup";
 import CardDetail from "@components/cardDetail/CardDetail";
-import { getObjectsById } from "@utils";
+import selectorComment from "@selectors/selector_comments";
 import PropTypes from "prop-types";
 import "./card.css";
 
 const Card = ({ columnTitle, card }) => {
-  const comments = useSelector((state) =>
-    getObjectsById(card.id, "card_id", state.data.comments)
-  );
+  const comments = useSelector((state) => selectorComment(state.data, card));
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOnClickCloseModal = (e) => {

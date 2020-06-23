@@ -50,7 +50,7 @@ const App = () => {
 
   return (
     <>
-      <Header onClickLogout={handleOnClickLogout} />
+      <Header name={name} onClickLogout={handleOnClickLogout} />
       <main>
         <Board title={"Основная доска"} />
       </main>
