@@ -1,17 +1,18 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Textarea from "@common_components/textarea/Textarea";
 import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
 import Card from "@components/card/Card";
 import { addCard, patchColumn } from "@routines";
-import selectorCard from "@selectors/selector_cards";
-import PropTypes from "prop-types";
+import { getAuth } from "@selectors/selector_auth";
+import getCards from "@selectors/selector_cards";
 import "./column.css";
 
 const Column = ({ column }) => {
   const dispatch = useDispatch();
-  const { name } = useSelector((state) => state.auth);
-  const cards = useSelector((state) => selectorCard(state.data, column));
+  const { name } = useSelector(getAuth);
+  const cards = useSelector(getCards(column));
 
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);

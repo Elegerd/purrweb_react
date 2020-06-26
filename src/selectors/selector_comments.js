@@ -1,9 +1,12 @@
 import { createSelector } from "reselect";
 
-const commentsSelector = (state) => state.comments;
-const currentCardId = (_, card) => card.id;
+export const getComments = (state) => state.data.comments;
 
-const getComments = (comments, card_id) =>
+const getCardId = (_, card) => card.id;
+
+const getCardComments = (comments, card_id) =>
   comments.filter((comment) => comment.card_id === card_id);
 
-export default createSelector(commentsSelector, currentCardId, getComments);
+const commentSelector = createSelector(getComments, getCardId, getCardComments);
+
+export default (card) => (state) => commentSelector.call(null, state, card);

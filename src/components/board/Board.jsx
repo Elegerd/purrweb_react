@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import Column from "@components/column/Column";
-import PropTypes from "prop-types";
+import { getData } from "@selectors/selector_data";
 import "./board.css";
 
 const Board = ({ title }) => {
-  const { columns } = useSelector((state) => state.data);
+  const { columns } = useSelector(getData);
 
   return (
     <div className={"board__wrapper"}>

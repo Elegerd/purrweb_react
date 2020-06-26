@@ -1,9 +1,12 @@
 import { createSelector } from "reselect";
 
-const cardsSelector = (state) => state.cards;
-const currentColumnId = (_, column) => column.id;
+export const getCards = (state) => state.data.cards;
 
-const getCards = (cards, column_id) =>
+const getColumnId = (_, column) => column.id;
+
+const getColumnCards = (cards, column_id) =>
   cards.filter((card) => card.column_id === column_id);
 
-export default createSelector(cardsSelector, currentColumnId, getCards);
+const cardSelector = createSelector(getCards, getColumnId, getColumnCards);
+
+export default (column) => (state) => cardSelector.call(null, state, column);

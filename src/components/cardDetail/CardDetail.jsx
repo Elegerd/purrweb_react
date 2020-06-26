@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Textarea from "@common_components/textarea/Textarea";
 import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
 import Comment from "@components/comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, patchCard, removeCard } from "@routines/index";
-import PropTypes from "prop-types";
+import { getAuth } from "@selectors/selector_auth";
 import "./cardDetail.css";
 
 const CardDetail = ({ columnTitle, card, comments }) => {
-  const { name } = useSelector((state) => state.auth);
+  const { name } = useSelector(getAuth);
   const dispatch = useDispatch();
   const [isNewComment, setIsNewComment] = useState(false);
   const [isEditTitle, setIsEditTitle] = useState(false);
@@ -82,7 +83,7 @@ const CardDetail = ({ columnTitle, card, comments }) => {
           </p>
         )}
         {comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment key={comment.id} authName={name} comment={comment} />
         ))}
       </>
     );

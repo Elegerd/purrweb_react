@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeComment, patchComment } from "@routines/index";
 import "./comment.css";
 
-const Comment = ({ comment }) => {
-  const { name } = useSelector((state) => state.auth);
+const Comment = ({ authName, comment }) => {
   const dispatch = useDispatch();
   const [isEditComment, setIsEditComment] = useState(false);
 
@@ -44,7 +43,7 @@ const Comment = ({ comment }) => {
         ) : (
           <>
             <div className={"comment-box__content"}>{comment.value}</div>
-            {comment.author === name && (
+            {comment.author === authName && (
               <div className={"comment-box__comment-action"}>
                 <a
                   className={"comment-action__edit"}
@@ -70,6 +69,7 @@ const Comment = ({ comment }) => {
 };
 
 Comment.propTypes = {
+  authName: PropTypes.string,
   comment: PropTypes.shape({
     id: PropTypes.number,
     author: PropTypes.string,
