@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import Popup from "@common_components/popup/Popup";
 import CardDetail from "@components/cardDetail/CardDetail";
-import getComments from "@selectors/selector_comments";
+import getComments from "@selectors/commentSelector";
 import "./card.css";
 
 const Card = ({ columnTitle, card }) => {

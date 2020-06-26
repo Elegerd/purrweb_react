@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "@components/header/Header";
 import Board from "@components/board/Board";
 import Popup from "@common_components/popup/Popup";
-import { getAuth } from "@selectors/selector_auth";
+import { getAuth } from "@selectors/authSelector";
 import { setName } from "@routines";
 import "./app.css";
 

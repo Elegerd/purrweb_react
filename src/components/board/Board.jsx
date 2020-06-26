@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import Column from "@components/column/Column";
-import { getData } from "@selectors/selector_data";
+import { getData } from "@selectors/dataSelector";
 import "./board.css";
 
 const Board = ({ title }) => {

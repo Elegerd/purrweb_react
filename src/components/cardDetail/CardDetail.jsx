@@ -5,7 +5,7 @@ import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
 import Comment from "@components/comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, patchCard, removeCard } from "@routines/index";
-import { getAuth } from "@selectors/selector_auth";
+import { getAuth } from "@selectors/authSelector";
 import "./cardDetail.css";
 
 const CardDetail = ({ columnTitle, card, comments }) => {

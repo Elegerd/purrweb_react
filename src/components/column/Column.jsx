@@ -5,8 +5,8 @@ import Textarea from "@common_components/textarea/Textarea";
 import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
 import Card from "@components/card/Card";
 import { addCard, patchColumn } from "@routines";
-import { getAuth } from "@selectors/selector_auth";
-import getCards from "@selectors/selector_cards";
+import { getAuth } from "@selectors/authSelector";
+import getCards from "@selectors/cardSelector";
 import "./column.css";
 
 const Column = ({ column }) => {
