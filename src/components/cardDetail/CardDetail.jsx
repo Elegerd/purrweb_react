@@ -1,21 +1,23 @@
-import React, { useContext, useState } from "react";
-import Textarea from "../../common_components/textarea/Textarea";
-import TextareaGroup from "../../common_components/textareaGroup/TextareaGroup";
-import Comment from "../comment/Comment";
-import { DataContext, NameContext } from "../App";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import Textarea from "@common_components/textarea/Textarea";
+import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
+import Comment from "@components/comment/Comment";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment, patchCard, removeCard } from "@routines/index";
+import { getAuth } from "@selectors/authSelector";
 import "./cardDetail.css";
 
 const CardDetail = ({ columnTitle, card, comments }) => {
-  const name = useContext(NameContext);
-  const { onChangeData, onAddData, onRemoveData } = useContext(DataContext);
+  const { name } = useSelector(getAuth);
+  const dispatch = useDispatch();
   const [isNewComment, setIsNewComment] = useState(false);
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isEditDescription, setIsEditDescription] = useState(false);
 
-  const changeCard = onChangeData("cards", card.id);
-  const addComment = onAddData("comments");
-  const removeCard = onRemoveData("cards", card.id);
+  const onChangeCard = (id, data) => dispatch(patchCard({ id, data }));
+  const onAddComment = (newComment) => dispatch(addComment(newComment));
+  const onRemoveCard = (id) => dispatch(removeCard(id));
 
   const handleOnKeyPress = (e) => {
     if (!e.shiftKey && e.which === 13) {
@@ -26,17 +28,22 @@ const CardDetail = ({ columnTitle, card, comments }) => {
   };
 
   const handleOnClickSaveDescription = (value) => {
-    changeCard("description", value);
+    onChangeCard(card.id, { description: value });
     setIsEditDescription(false);
   };
 
   const handleOnClickAddNewComment = (value) => {
     if (value.length)
-      addComment({ value, card_id: card.id, author: name, date: new Date() });
+      onAddComment({
+        value,
+        card_id: card.id,
+        author: name,
+        date: new Date(),
+      });
     setIsNewComment(false);
   };
 
-  const handleOnClickRemoveCard = (e) => removeCard("card");
+  const handleOnClickRemoveCard = (e) => onRemoveCard(card.id);
 
   const renderDescription = () => {
     const placeholder = "Добавить более подробное описание...";
@@ -76,7 +83,7 @@ const CardDetail = ({ columnTitle, card, comments }) => {
           </p>
         )}
         {comments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment key={comment.id} authName={name} comment={comment} />
         ))}
       </>
     );
@@ -91,7 +98,7 @@ const CardDetail = ({ columnTitle, card, comments }) => {
           onBlur={(value) => setIsEditTitle(value)}
           onKeyPress={handleOnKeyPress}
           onChangeIsEdit={(value) => setIsEditTitle(value)}
-          onChangeValue={(value) => changeCard("title", value)}
+          onChangeValue={(value) => onChangeCard(card.id, { title: value })}
         />
         <div className={"header__column-title"}>в колонке {columnTitle}</div>
       </div>
@@ -107,7 +114,7 @@ const CardDetail = ({ columnTitle, card, comments }) => {
           </div>
         </div>
         <div className="col-auto card-content__card_action">
-          <p className={"card_action__creator"}>Создатель: {name}</p>
+          <p className={"card_action__creator"}>Создатель: {card.author}</p>
           <button
             className={"btn btn-danger"}
             onClick={handleOnClickRemoveCard}

@@ -1,19 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import TextareaGroup from "../../common_components/textareaGroup/TextareaGroup";
-import { DataContext, NameContext } from "../App";
+import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
+import { useDispatch } from "react-redux";
+import { removeComment, patchComment } from "@routines/index";
 import "./comment.css";
 
-const Comment = ({ comment }) => {
-  const name = useContext(NameContext);
-  const { onChangeData, onRemoveData } = useContext(DataContext);
+const Comment = ({ authName, comment }) => {
+  const dispatch = useDispatch();
   const [isEditComment, setIsEditComment] = useState(false);
 
-  const changeComment = onChangeData("comments", comment.id);
-  const removeComment = onRemoveData("comments", comment.id);
+  const onChangeComment = (id, data) => dispatch(patchComment({ id, data }));
+  const onRemoveComment = (id) => dispatch(removeComment(id));
+
   const handleOnClickRemove = (e) => {
     e.preventDefault();
-    removeComment("comment");
+    onRemoveComment(comment.id);
   };
 
   const handleOnClickIsEdit = (e) => {
@@ -22,7 +23,7 @@ const Comment = ({ comment }) => {
   };
 
   const handleOnClickChangeComment = (value) => {
-    if (value.length) changeComment("value", value);
+    if (value.length) onChangeComment(comment.id, { value });
     setIsEditComment(false);
   };
 
@@ -42,7 +43,7 @@ const Comment = ({ comment }) => {
         ) : (
           <>
             <div className={"comment-box__content"}>{comment.value}</div>
-            {comment.author === name && (
+            {comment.author === authName && (
               <div className={"comment-box__comment-action"}>
                 <a
                   className={"comment-action__edit"}
@@ -68,6 +69,7 @@ const Comment = ({ comment }) => {
 };
 
 Comment.propTypes = {
+  authName: PropTypes.string,
   comment: PropTypes.shape({
     id: PropTypes.number,
     author: PropTypes.string,
@@ -75,7 +77,5 @@ Comment.propTypes = {
     value: PropTypes.string,
   }),
 };
-
-Comment.defaultProps = {};
 
 export default Comment;

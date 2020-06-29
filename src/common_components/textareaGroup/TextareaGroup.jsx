@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import Textarea from "../textarea/Textarea";
 import PropTypes from "prop-types";
+import Textarea from "@common_components/textarea/Textarea";
 import "./textareagroup.css";
 
 const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
@@ -21,11 +21,9 @@ const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
     }
   };
 
-  const handleOnKeyPress = (e) => {
-    if (!e.shiftKey && e.which === 13) {
-      setValueTextarea("");
-      onClick(valueTextarea);
-    }
+  const handleOnKeyPress = () => {
+    setValueTextarea("");
+    onClick(valueTextarea);
   };
 
   const handleOnClick = (e) => {
@@ -33,13 +31,15 @@ const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
     onClick(valueTextarea);
   };
 
+  const handleOnChangeValue = (value) => setValueTextarea(value);
+
   return (
     <div ref={textareaGroup} className={"textarea-group"}>
       <Textarea
         value={valueTextarea}
         placeholder={placeholder}
         onKeyPress={handleOnKeyPress}
-        onChangeValue={(value) => setValueTextarea(value)}
+        onChangeValue={handleOnChangeValue}
         autoFocus={false}
       />
       <div className={"textarea-group__container-button"}>

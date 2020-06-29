@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import Popup from "../../common_components/popup/Popup";
-import CardDetail from "../cardDetail/CardDetail";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import Popup from "@common_components/popup/Popup";
+import CardDetail from "@components/cardDetail/CardDetail";
+import { getCardComments } from "@selectors/commentSelector";
 import "./card.css";
 
-const Card = ({ columnTitle, card, comments }) => {
+const Card = ({ columnTitle, card }) => {
+  const comments = useSelector(getCardComments(card));
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOnClickCloseModal = (e) => {
@@ -58,7 +61,6 @@ Card.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
   }),
-  comments: PropTypes.array,
 };
 
 export default Card;

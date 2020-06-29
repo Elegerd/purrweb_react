@@ -8,6 +8,16 @@ module.exports = {
     filename: "js/[name].bundle.js",
   },
   resolve: {
+    alias: {
+      "@components": path.resolve(__dirname, "src/components"),
+      "@common_components": path.resolve(__dirname, "src/common_components"),
+      "@actions": path.resolve(__dirname, "src/actions"),
+      "@reducers": path.resolve(__dirname, "src/reducers"),
+      "@routines": path.resolve(__dirname, "src/routines"),
+      "@sagas": path.resolve(__dirname, "src/sagas"),
+      "@selectors": path.resolve(__dirname, "src/selectors"),
+      "@utils": path.resolve(__dirname, "src/utils"),
+    },
     extensions: [".js", ".jsx"],
   },
   module: {

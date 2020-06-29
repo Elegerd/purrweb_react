@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
-import { NameContext } from "../App";
+import React from "react";
 import PropTypes from "prop-types";
 import "./header.css";
 
-const Header = ({ onClickLogout }) => {
-  const name = useContext(NameContext);
+const Header = ({ name, onClickLogout }) => {
   const handleOnClickLogout = (e) => {
     e.preventDefault();
     onClickLogout();
@@ -29,6 +27,7 @@ const Header = ({ onClickLogout }) => {
 };
 
 Header.propTypes = {
+  name: PropTypes.string,
   onClickLogout: PropTypes.func,
 };
 
