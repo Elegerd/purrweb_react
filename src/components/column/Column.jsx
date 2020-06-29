@@ -6,13 +6,13 @@ import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
 import Card from "@components/card/Card";
 import { addCard, patchColumn } from "@routines";
 import { getAuth } from "@selectors/authSelector";
-import getCards from "@selectors/cardSelector";
+import { getColumnCards } from "@selectors/cardSelector";
 import "./column.css";
 
 const Column = ({ column }) => {
   const dispatch = useDispatch();
   const { name } = useSelector(getAuth);
-  const cards = useSelector(getCards(column));
+  const cards = useSelector(getColumnCards(column));
 
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);

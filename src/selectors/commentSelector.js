@@ -4,9 +4,14 @@ export const getComments = (state) => state.data.comments;
 
 const getCardId = (_, card) => card.id;
 
-const getCardComments = (comments, card_id) =>
+const getCommentsSelector = (comments, card_id) =>
   comments.filter((comment) => comment.card_id === card_id);
 
-const commentSelector = createSelector(getComments, getCardId, getCardComments);
+const commentSelector = createSelector(
+  getComments,
+  getCardId,
+  getCommentsSelector
+);
 
-export default (card) => (state) => commentSelector.call(null, state, card);
+export const getCardComments = (card) => (state) =>
+  commentSelector(state, card);

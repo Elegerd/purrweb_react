@@ -4,9 +4,10 @@ export const getCards = (state) => state.data.cards;
 
 const getColumnId = (_, column) => column.id;
 
-const getColumnCards = (cards, column_id) =>
+const getCardsSelector = (cards, column_id) =>
   cards.filter((card) => card.column_id === column_id);
 
-const cardSelector = createSelector(getCards, getColumnId, getColumnCards);
+const cardSelector = createSelector(getCards, getColumnId, getCardsSelector);
 
-export default (column) => (state) => cardSelector.call(null, state, column);
+export const getColumnCards = (column) => (state) =>
+  cardSelector(state, column);
