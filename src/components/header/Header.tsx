@@ -1,9 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { MouseEvent } from "react";
 import "./header.css";
 
-const Header = ({ name, onClickLogout }) => {
-  const handleOnClickLogout = (e) => {
+type Props = {
+  name: string;
+  onClickLogout: () => void;
+};
+
+const Header: React.FunctionComponent<Props> = ({ name, onClickLogout }) => {
+  const handleOnClickLogout = (e: MouseEvent) => {
     e.preventDefault();
     onClickLogout();
   };
@@ -24,11 +28,6 @@ const Header = ({ name, onClickLogout }) => {
       )}
     </header>
   );
-};
-
-Header.propTypes = {
-  name: PropTypes.string,
-  onClickLogout: PropTypes.func,
 };
 
 export default Header;

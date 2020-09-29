@@ -8,7 +8,17 @@ import { addComment, patchCard, removeCard } from "@routines/index";
 import { getAuth } from "@selectors/authSelector";
 import "./cardDetail.css";
 
-const CardDetail = ({ columnTitle, card, comments }) => {
+type Props = {
+  columnTitle: string;
+  card: Card;
+  comments: Array<Comment>;
+};
+
+const CardDetail: React.FunctionComponent<Props> = ({
+  columnTitle,
+  card,
+  comments,
+}) => {
   const { name } = useSelector(getAuth);
   const dispatch = useDispatch();
   const [isNewComment, setIsNewComment] = useState(false);

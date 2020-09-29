@@ -1,9 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, MouseEvent } from "react";
 import PropTypes from "prop-types";
 import Textarea from "@commonComponents/textarea/Textarea";
 import "./textareagroup.css";
 
-const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
+type Props = {
+  value: string;
+  titleButton: string;
+  placeholder: string;
+  onClick: (value: string) => void;
+};
+
+const TextareaGroup: React.FunctionComponent<Props> = ({ value, titleButton, placeholder, onClick }) => {
   const textareaGroup = useRef();
   const [valueTextarea, setValueTextarea] = useState(value);
 
@@ -14,7 +21,7 @@ const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
     };
   });
 
-  const handleOnClickContains = (e) => {
+  const handleOnClickContains = (e: MouseEvent) => {
     if (textareaGroup.current && !textareaGroup.current.contains(e.target)) {
       setValueTextarea("");
       onClick(valueTextarea);
@@ -26,12 +33,12 @@ const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
     onClick(valueTextarea);
   };
 
-  const handleOnClick = (e) => {
+  const handleOnClick = () => {
     setValueTextarea("");
     onClick(valueTextarea);
   };
 
-  const handleOnChangeValue = (value) => setValueTextarea(value);
+  const handleOnChangeValue = (value: string) => setValueTextarea(value);
 
   return (
     <div ref={textareaGroup} className={"textarea-group"}>
@@ -49,13 +56,6 @@ const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
       </div>
     </div>
   );
-};
-
-TextareaGroup.propTypes = {
-  value: PropTypes.string,
-  titleButton: PropTypes.string,
-  placeholder: PropTypes.string,
-  onClick: PropTypes.func,
 };
 
 TextareaGroup.defaultProps = {

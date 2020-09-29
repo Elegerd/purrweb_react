@@ -1,8 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useRef, useState, FocusEvent } from "react";
 import "./textarea.css";
 
-const Textarea = ({
+type Props = {
+  value: string;
+  placeholder: string;
+  autoFocus: boolean;
+  isEdit: boolean;
+  onChangeValue: (value: string) => void;
+  onChangeIsEdit: (value: boolean) => void;
+};
+
+const Textarea: React.FunctionComponent<Props> = ({
   value,
   placeholder,
   autoFocus,
@@ -23,7 +31,7 @@ const Textarea = ({
     }
   });
 
-  const handleOnBlur = (e) => {
+  const handleOnBlur = (e: FocusEvent) => {
     e.preventDefault();
     onChangeValue(valueTextarea);
     onChangeIsEdit(false);
@@ -59,15 +67,6 @@ const Textarea = ({
       />
     </label>
   );
-};
-
-Textarea.propTypes = {
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  isEdit: PropTypes.bool,
-  onChangeValue: PropTypes.func,
-  onChangeIsEdit: PropTypes.func,
 };
 
 Textarea.defaultProps = {

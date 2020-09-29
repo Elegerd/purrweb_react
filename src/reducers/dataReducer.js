@@ -63,7 +63,7 @@ export function dataReducer(state = initDataApplication, action) {
       };
     }
     case patchComment.TRIGGER: {
-      const { id, data } = action.payload;
+      const { id, ...data } = action.payload;
       return {
         ...state,
         comments: state.comments.map((comment) => {

@@ -5,7 +5,11 @@ import Column from "@components/column/Column";
 import { getData } from "@selectors/dataSelector";
 import "./board.css";
 
-const Board = ({ title }) => {
+type Props = {
+  title: string;
+};
+
+const Board: React.FunctionComponent<Props> = ({ title }) => {
   const { columns } = useSelector(getData);
 
   return (

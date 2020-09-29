@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import Textarea from "@commonComponents/textarea/Textarea";
 import TextareaGroup from "@commonComponents/textareaGroup/TextareaGroup";
@@ -9,7 +8,11 @@ import { getAuth } from "@selectors/authSelector";
 import { getColumnCards } from "@selectors/cardSelector";
 import "./column.css";
 
-const Column = ({ column }) => {
+type Props = {
+  column: Column;
+};
+
+const Column: React.FunctionComponent<Props> = ({ column }) => {
   const dispatch = useDispatch();
   const { name } = useSelector(getAuth);
   const cards = useSelector(getColumnCards(column));
@@ -87,13 +90,6 @@ const Column = ({ column }) => {
       </div>
     </div>
   );
-};
-
-Column.propTypes = {
-  column: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-  }),
 };
 
 export default Column;
