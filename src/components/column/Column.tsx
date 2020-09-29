@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import Textarea from "@common_components/textarea/Textarea";
-import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
+import Textarea from "@commonComponents/textarea/Textarea";
+import TextareaGroup from "@commonComponents/textareaGroup/TextareaGroup";
 import Card from "@components/card/Card";
 import { addCard, patchColumn } from "@routines";
 import { getAuth } from "@selectors/authSelector";

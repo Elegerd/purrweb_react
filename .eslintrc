@@ -3,13 +3,15 @@
     "prettier",
     "prettier/standard",
     "prettier/react",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error"
   },
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true
   },

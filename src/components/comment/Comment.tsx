@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
+import TextareaGroup from "@commonComponents/textareaGroup/TextareaGroup";
 import { useDispatch } from "react-redux";
 import { removeComment, patchComment } from "@routines/index";
 import "./comment.css";

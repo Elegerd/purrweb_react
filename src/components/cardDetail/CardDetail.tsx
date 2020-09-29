@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Textarea from "@common_components/textarea/Textarea";
-import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
+import Textarea from "@commonComponents/textarea/Textarea";
+import TextareaGroup from "@commonComponents/textareaGroup/TextareaGroup";
 import Comment from "@components/comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, patchCard, removeCard } from "@routines/index";

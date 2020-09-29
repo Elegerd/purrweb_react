@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import Textarea from "@common_components/textarea/Textarea";
+import Textarea from "@commonComponents/textarea/Textarea";
 import "./textareagroup.css";
 
 const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {

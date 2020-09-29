@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import Popup from "@common_components/popup/Popup";
+import Popup from "@commonComponents/popup/Popup";
 import CardDetail from "@components/cardDetail/CardDetail";
 import { getCardComments } from "@selectors/commentSelector";
 import "./card.css";
