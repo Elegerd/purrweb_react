@@ -13,7 +13,18 @@
     "esModuleInterop": true,
     "preserveConstEnums": true,
     "resolveJsonModule": true,
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "commonComponents/*": ["src/commonComponents/*"],
+      "actions/*": ["src/actions/*"],
+      "reducers/*": ["src/reducers/*"],
+      "routines/*": ["src/routines/*"],
+      "sagas/*": ["src/sagas/*"],
+      "selectors/*": ["src/selectors/*"],
+      "utils/*": ["src/utils/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

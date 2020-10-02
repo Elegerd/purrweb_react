@@ -8,7 +8,7 @@
     "prettier/react",
     "prettier/standard"
   ],
-  "plugins": ["prettier", "@typescript-eslint/eslint-plugin"],
+  "plugins": ["prettier", "@typescript-eslint/eslint-plugin", "import"],
   "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
@@ -16,10 +16,11 @@
     "es6": true,
     "node": true
   },
-  "settings": {
-    "react": {
-      "pragma": "React",
-      "version": "detect"
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
   },
   "overrides": [
@@ -30,6 +31,26 @@
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-var-requires": 0
       }
+    },
+    {
+      "files": ["*.js"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
     }
-  ]
+  ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  }
 }

@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState, MouseEvent } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Textarea from "commonComponents/textarea/Textarea";
 import "./textareagroup.css";
 
 type Props = {
-  value: string;
+  value?: string;
   titleButton: string;
   placeholder: string;
   onClick: (value: string) => void;
@@ -15,8 +15,8 @@ const TextareaGroup: React.FunctionComponent<Props> = ({
   placeholder,
   onClick,
 }) => {
-  const textareaGroup = useRef();
-  const [valueTextarea, setValueTextarea] = useState(value);
+  const textareaGroup = useRef<HTMLDivElement>(null);
+  const [valueTextarea, setValueTextarea] = useState(value || "");
 
   useEffect(() => {
     document.addEventListener("click", handleOnClickContains, false);
@@ -25,16 +25,12 @@ const TextareaGroup: React.FunctionComponent<Props> = ({
     };
   });
 
-  const handleOnClickContains = (e: MouseEvent) => {
-    if (textareaGroup.current && !textareaGroup.current.contains(e.target)) {
+  const handleOnClickContains = (e: any) => {
+    const target = e.target as HTMLElement;
+    if (textareaGroup.current && !textareaGroup.current?.contains(target)) {
       setValueTextarea("");
       onClick(valueTextarea);
     }
-  };
-
-  const handleOnKeyPress = () => {
-    setValueTextarea("");
-    onClick(valueTextarea);
   };
 
   const handleOnClick = () => {
@@ -49,7 +45,6 @@ const TextareaGroup: React.FunctionComponent<Props> = ({
       <Textarea
         value={valueTextarea}
         placeholder={placeholder}
-        onKeyPress={handleOnKeyPress}
         onChangeValue={handleOnChangeValue}
         autoFocus={false}
       />

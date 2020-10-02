@@ -1,9 +1,9 @@
 import { applyMiddleware, createStore, Store } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { persistStore, Persistor } from "redux-persist";
-import { composeWithDevTools } from 'redux-devtools-extension';
-import createRootReducer from "reducers";
-import rootSaga from "sagas";
+import { composeWithDevTools } from "redux-devtools-extension";
+import createRootReducer from "reducers/index";
+import rootSaga from "sagas/index";
 
 export default function configureStore(): {
   store: Store;

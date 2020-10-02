@@ -1,13 +1,21 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  FocusEvent,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./textarea.css";
 
 type Props = {
   value: string;
-  placeholder: string;
-  autoFocus: boolean;
-  isEdit: boolean;
-  onChangeValue: (value: string) => void;
-  onChangeIsEdit: (value: boolean) => void;
+  placeholder?: string;
+  autoFocus?: boolean;
+  isEdit?: boolean;
+  onChangeValue?: (value: string) => void;
+  onChangeIsEdit?: (value: boolean) => void;
 };
 
 const Textarea: React.FunctionComponent<Props> = ({
@@ -20,7 +28,7 @@ const Textarea: React.FunctionComponent<Props> = ({
 }) => {
   const [height, setHeight] = useState(0);
   const [valueTextarea, setValueTextarea] = useState(value);
-  const textarea = useRef(null);
+  const textarea = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (textarea.current && height !== textarea.current.scrollHeight) {
@@ -31,25 +39,25 @@ const Textarea: React.FunctionComponent<Props> = ({
     }
   });
 
-  const handleOnBlur = (e: FocusEvent) => {
+  const handleOnBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
-    onChangeValue(valueTextarea);
-    onChangeIsEdit(false);
+    onChangeValue?.(valueTextarea);
+    onChangeIsEdit?.(false);
   };
 
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setValueTextarea(e.target.value);
+  const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setValueTextarea?.(e.target.value);
 
-  const handleOnClick = (e: MouseEvent) => {
+  const handleOnClick = (e: MouseEvent<HTMLLabelElement>) => {
     e.preventDefault();
-    onChangeIsEdit(true);
+    onChangeIsEdit?.(true);
   };
 
-  const handleOnKeyPress = (e: KeyboardEvent) => {
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (!e.shiftKey && e.key === "Enter") {
       e.preventDefault();
-      onChangeValue(valueTextarea);
-      onChangeIsEdit(false);
+      onChangeValue?.(valueTextarea);
+      onChangeIsEdit?.(false);
     }
   };
 
@@ -70,12 +78,12 @@ const Textarea: React.FunctionComponent<Props> = ({
   );
 };
 
-Textarea.defaultProps = {
+const defaultProps = {
   isEdit: true,
   autoFocus: true,
   placeholder: "",
-  onChangeValue: () => {},
-  onChangeIsEdit: () => {},
 };
+
+Textarea.defaultProps = defaultProps;
 
 export default Textarea;

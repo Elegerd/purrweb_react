@@ -1,11 +1,11 @@
 import { takeEvery, put, all, select } from "redux-saga/effects";
-import { removeCard, removeComment } from "routines";
+import { removeCard, removeComment } from "routines/index";
 
 function* cardWatcherSaga() {
   yield takeEvery(removeCard.TRIGGER, cardWorker);
 }
 
-function* cardWorker({ payload }: { payload: number }) {
+function* cardWorker({ payload }: ReturnType<typeof removeCard>) {
   try {
     const { data } = yield select();
     const removeCommentIds = data.comments
@@ -17,6 +17,6 @@ function* cardWorker({ payload }: { payload: number }) {
   }
 }
 
-export default function* rootSaga(): IterableIterator {
+export default function* rootSaga(): IterableIterator<any> {
   yield all([cardWatcherSaga()]);
 }

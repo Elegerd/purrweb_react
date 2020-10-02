@@ -7,10 +7,14 @@ import {
   patchCard,
   patchComment,
   patchColumn,
-} from "routines";
-import { getNewId } from "utils";
+} from "routines/index";
+import { AnyAction } from "redux";
+import { getNewId } from "utils/index";
 
-export function dataReducer(state = initDataApplication, action) {
+export function dataReducer(
+  state = initDataApplication,
+  action: AnyAction
+): DataState {
   switch (action.type) {
     case addCard.TRIGGER: {
       const newCard = {
@@ -49,7 +53,7 @@ export function dataReducer(state = initDataApplication, action) {
       };
     }
     case patchCard.TRIGGER: {
-      const { id, data } = action.payload;
+      const { id, ...data } = action.payload;
       return {
         ...state,
         cards: state.cards.map((card) => {
@@ -77,7 +81,7 @@ export function dataReducer(state = initDataApplication, action) {
       };
     }
     case patchColumn.TRIGGER: {
-      const { id, data } = action.payload;
+      const { id, ...data } = action.payload;
       return {
         ...state,
         columns: state.columns.map((column) => {

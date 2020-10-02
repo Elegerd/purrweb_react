@@ -4,22 +4,22 @@ import Header from "components/header/Header";
 import Board from "components/board/Board";
 import Popup from "commonComponents/popup/Popup";
 import { getAuth } from "selectors/authSelector";
-import { setName } from "routines";
+import { setName } from "routines/index";
 import "./app.css";
 
 const App: React.FunctionComponent = () => {
-  const nameInput = useRef(null);
+  const nameInput = useRef<HTMLInputElement>(null);
   const [isOpenModalName, setIsOpenModalName] = useState(false);
 
   const dispatch = useDispatch();
-  const { name }: Auth = useSelector(getAuth);
+  const { name }: AuthState = useSelector(getAuth);
 
   useEffect(() => {
     if (!name) setIsOpenModalName(true);
   }, []);
 
   const handleOnSubmit = () => {
-    const name = nameInput.current.value || "Guest";
+    const name = nameInput.current?.value || "Guest";
     setIsOpenModalName(false);
     dispatch(setName(name));
   };

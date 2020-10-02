@@ -1,8 +1,8 @@
-import React, { useEffect, KeyboardEvent } from "react";
+import React, { useEffect } from "react";
 import "./popup.css";
 
 type Props = {
-  onClose: () => void;
+  onClose?: () => void;
 };
 
 const Popup: React.FunctionComponent<Props> = ({ children, onClose }) => {
@@ -13,9 +13,9 @@ const Popup: React.FunctionComponent<Props> = ({ children, onClose }) => {
     };
   }, []);
 
-  const handleEscPress = (e: KeyboardEvent) => {
+  const handleEscPress = (e: any) => {
     if (e.key === "Esc") {
-      onClose();
+      onClose?.();
     }
   };
 

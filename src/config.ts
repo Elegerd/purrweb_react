@@ -1,4 +1,4 @@
-export const initDataApplication = {
+export const initDataApplication: DataState = {
   columns: [
     {
       id: 0,
@@ -19,4 +19,8 @@ export const initDataApplication = {
   ],
   cards: [],
   comments: [],
+};
+
+export const initAuthApplication: AuthState = {
+  name: null,
 };

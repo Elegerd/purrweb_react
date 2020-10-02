@@ -1,7 +1,7 @@
 import React, { useState, MouseEvent } from "react";
 import TextareaGroup from "commonComponents/textareaGroup/TextareaGroup";
 import { useDispatch } from "react-redux";
-import { removeComment, patchComment } from "routines";
+import { removeComment, patchComment } from "routines/index";
 import "./comment.css";
 
 type Props = {
@@ -13,7 +13,8 @@ const Comment: React.FunctionComponent<Props> = ({ authName, comment }) => {
   const dispatch = useDispatch();
   const [isEditComment, setIsEditComment] = useState(false);
 
-  const onChangeComment = (comment: Comment) => dispatch(patchComment(comment));
+  const onChangeComment = (data: { id: number; value: string }) =>
+    dispatch(patchComment(data));
   const onRemoveComment = (id: number) => dispatch(removeComment(id));
 
   const handleOnClickRemove = (e: MouseEvent) => {
@@ -27,7 +28,7 @@ const Comment: React.FunctionComponent<Props> = ({ authName, comment }) => {
   };
 
   const handleOnClickChangeComment = (value: string) => {
-    if (value.length) onChangeComment(comment.id, { value });
+    if (value.length) onChangeComment({ id: comment.id, value });
     setIsEditComment(false);
   };
 

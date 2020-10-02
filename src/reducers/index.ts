@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers, Reducer } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { dataReducer } from "./dataReducer";
@@ -14,10 +14,10 @@ const authPersistConfig = {
   storage,
 };
 
-const rootReducer = () =>
+const rootReducer = (): Reducer =>
   combineReducers({
-    data: persistReducer(dataPersistConfig, dataReducer),
-    auth: persistReducer(authPersistConfig, authReducer),
+    data: persistReducer<DataState>(dataPersistConfig, dataReducer),
+    auth: persistReducer<AuthState>(authPersistConfig, authReducer),
   });
 
 export default rootReducer;

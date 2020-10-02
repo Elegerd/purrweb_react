@@ -2,7 +2,7 @@ import React, { MouseEvent } from "react";
 import "./header.css";
 
 type Props = {
-  name: string;
+  name: string | null;
   onClickLogout: () => void;
 };
 

@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Card: React.FunctionComponent<Props> = ({ columnTitle, card }) => {
-  const comments: Array<Comment> = useSelector(getCardComments(card));
+  const comments: Array<UserComment> = useSelector(getCardComments(card));
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOnClickCloseModal = (e: MouseEvent) => {
