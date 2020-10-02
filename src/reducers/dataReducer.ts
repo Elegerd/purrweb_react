@@ -18,8 +18,8 @@ export function dataReducer(
   switch (action.type) {
     case addCard.TRIGGER: {
       const newCard = {
-        id: getNewId(state.cards.map((card) => card.id)),
         ...action.payload,
+        id: getNewId(state.cards.map((card) => card.id)),
       };
       return {
         ...state,
@@ -28,8 +28,8 @@ export function dataReducer(
     }
     case addComment.TRIGGER: {
       const newComment = {
-        id: getNewId(state.comments.map((comment) => comment.id)),
         ...action.payload,
+        id: getNewId(state.comments.map((comment) => comment.id)),
       };
       return {
         ...state,
