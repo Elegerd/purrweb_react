@@ -17,6 +17,6 @@ function* cardWorker({ payload }: ReturnType<typeof removeCard>) {
   }
 }
 
-export default function* rootSaga(): IterableIterator<any> {
+export default function* rootSaga(): Generator {
   yield all([cardWatcherSaga()]);
 }

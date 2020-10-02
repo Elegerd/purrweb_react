@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, MouseEvent } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Textarea from "commonComponents/textarea/Textarea";
 import "./textareagroup.css";
 
@@ -25,7 +25,9 @@ const TextareaGroup: React.FunctionComponent<Props> = ({
     };
   });
 
-  const handleOnClickContains: EventListener | EventListenerObject = (evt): void => {
+  const handleOnClickContains: EventListener | EventListenerObject = (
+    evt
+  ): void => {
     const target = evt.target as HTMLElement;
     if (textareaGroup.current && !textareaGroup.current?.contains(target)) {
       setValueTextarea("");
