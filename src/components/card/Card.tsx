@@ -1,8 +1,8 @@
 import React, { useState, MouseEvent } from "react";
 import { useSelector } from "react-redux";
-import Popup from "@commonComponents/popup/Popup";
-import CardDetail from "@components/cardDetail/CardDetail";
-import { getCardComments } from "@selectors/commentSelector";
+import Popup from "commonComponents/popup/Popup";
+import CardDetail from "components/cardDetail/CardDetail";
+import { getCardComments } from "selectors/commentSelector";
 import "./card.css";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const Card: React.FunctionComponent<Props> = ({ columnTitle, card }) => {
-  const comments = useSelector(getCardComments(card));
+  const comments: Array<Comment> = useSelector(getCardComments(card));
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleOnClickCloseModal = (e: MouseEvent) => {

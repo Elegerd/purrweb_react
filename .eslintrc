@@ -1,19 +1,20 @@
 {
   "extends": [
-    "prettier",
-    "prettier/standard",
-    "prettier/react",
     "plugin:react/recommended",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "prettier/standard"
   ],
-  "plugins": ["prettier"],
-  "rules": {
-    "prettier/prettier": "error"
-  },
+  "plugins": ["prettier", "@typescript-eslint/eslint-plugin"],
   "parser": "@typescript-eslint/parser",
   "env": {
-    "browser": true
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
   },
   "settings": {
     "react": {
@@ -25,7 +26,9 @@
     {
       "files": ["**/*.tsx"],
       "rules": {
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-var-requires": 0
       }
     }
   ]

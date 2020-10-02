@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Textarea from "@commonComponents/textarea/Textarea";
-import TextareaGroup from "@commonComponents/textareaGroup/TextareaGroup";
-import Comment from "@components/comment/Comment";
+import Textarea from "commonComponents/textarea/Textarea";
+import TextareaGroup from "commonComponents/textareaGroup/TextareaGroup";
+import Comment from "components/comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, patchCard, removeCard } from "@routines/index";
-import { getAuth } from "@selectors/authSelector";
+import { addComment, patchCard, removeCard } from "routines/index";
+import { getAuth } from "selectors/authSelector";
 import "./cardDetail.css";
 
 type Props = {
@@ -19,7 +18,7 @@ const CardDetail: React.FunctionComponent<Props> = ({
   card,
   comments,
 }) => {
-  const { name } = useSelector(getAuth);
+  const { name }: Auth = useSelector(getAuth);
   const dispatch = useDispatch();
   const [isNewComment, setIsNewComment] = useState(false);
   const [isEditTitle, setIsEditTitle] = useState(false);
@@ -135,17 +134,6 @@ const CardDetail: React.FunctionComponent<Props> = ({
       </div>
     </>
   );
-};
-
-CardDetail.propTypes = {
-  columnTitle: PropTypes.string,
-  card: PropTypes.shape({
-    id: PropTypes.number,
-    column_id: PropTypes.number,
-    title: PropTypes.string,
-    description: PropTypes.string,
-  }),
-  comments: PropTypes.array,
 };
 
 export default CardDetail;

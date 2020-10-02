@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, FocusEvent } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./textarea.css";
 
 type Props = {
@@ -37,15 +37,16 @@ const Textarea: React.FunctionComponent<Props> = ({
     onChangeIsEdit(false);
   };
 
-  const handleOnChange = (e) => setValueTextarea(e.target.value);
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setValueTextarea(e.target.value);
 
-  const handleOnClick = (e) => {
+  const handleOnClick = (e: MouseEvent) => {
     e.preventDefault();
     onChangeIsEdit(true);
   };
 
-  const handleOnKeyPress = (e) => {
-    if (!e.shiftKey && e.which === 13) {
+  const handleOnKeyPress = (e: KeyboardEvent) => {
+    if (!e.shiftKey && e.key === "Enter") {
       e.preventDefault();
       onChangeValue(valueTextarea);
       onChangeIsEdit(false);

@@ -18,3 +18,7 @@ declare type Card = {
   author: string;
   description: string;
 };
+
+declare type Auth = {
+  name: string;
+};

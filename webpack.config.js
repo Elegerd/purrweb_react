@@ -1,5 +1,5 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -9,14 +9,14 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "@components": path.resolve(__dirname, "src/components"),
-      "@commonComponents": path.resolve(__dirname, "src/commonComponents"),
-      "@actions": path.resolve(__dirname, "src/actions"),
-      "@reducers": path.resolve(__dirname, "src/reducers"),
-      "@routines": path.resolve(__dirname, "src/routines"),
-      "@sagas": path.resolve(__dirname, "src/sagas"),
-      "@selectors": path.resolve(__dirname, "src/selectors"),
-      "@utils": path.resolve(__dirname, "src/utils"),
+      components: path.resolve(__dirname, "src/components"),
+      commonComponents: path.resolve(__dirname, "src/commonComponents"),
+      actions: path.resolve(__dirname, "src/actions"),
+      reducers: path.resolve(__dirname, "src/reducers"),
+      routines: path.resolve(__dirname, "src/routines"),
+      sagas: path.resolve(__dirname, "src/sagas"),
+      selectors: path.resolve(__dirname, "src/selectors"),
+      utils: path.resolve(__dirname, "src/utils"),
     },
     extensions: [".js", ".ts", ".tsx"],
   },

@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, KeyboardEvent } from "react";
 import "./popup.css";
 
-const Popup = ({ className, children, onClose }) => {
+type Props = {
+  onClose: () => void;
+};
+
+const Popup: React.FunctionComponent<Props> = ({ children, onClose }) => {
   useEffect(() => {
     document.addEventListener("keydown", handleEscPress, false);
     return () => {
@@ -10,29 +13,22 @@ const Popup = ({ className, children, onClose }) => {
     };
   }, []);
 
-  const handleEscPress = (e) => {
-    if (e.keyCode === 27) {
+  const handleEscPress = (e: KeyboardEvent) => {
+    if (e.key === "Esc") {
       onClose();
     }
   };
 
   return (
     <div className={"popup__overlay"}>
-      <div className={`popup ${className}`}>
+      <div className={`popup`}>
         <div className={"popup__content"}>{children}</div>
       </div>
     </div>
   );
 };
 
-Popup.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  onClose: PropTypes.func,
-};
-
 Popup.defaultProps = {
-  className: "",
   onClose: () => {},
 };
 

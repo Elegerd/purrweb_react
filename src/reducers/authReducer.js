@@ -1,4 +1,4 @@
-import { setName } from "@routines/index";
+import { setName } from "routines";
 
 export function authReducer(state = { name: null }, action) {
   switch (action.type) {

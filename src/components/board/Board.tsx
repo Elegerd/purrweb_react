@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import Column from "@components/column/Column";
-import { getData } from "@selectors/dataSelector";
+import Column from "components/column/Column";
+import { getData } from "selectors/dataSelector";
 import "./board.css";
 
 type Props = {
@@ -10,7 +9,7 @@ type Props = {
 };
 
 const Board: React.FunctionComponent<Props> = ({ title }) => {
-  const { columns } = useSelector(getData);
+  const { columns }: { columns: Array<Column> } = useSelector(getData);
 
   return (
     <div className={"board__wrapper"}>
@@ -19,17 +18,13 @@ const Board: React.FunctionComponent<Props> = ({ title }) => {
       </div>
       <div className={"board"}>
         <div className={"row"}>
-          {columns.map((column) => {
+          {columns.map((column: Column) => {
             return <Column key={column.id} column={column} />;
           })}
         </div>
       </div>
     </div>
   );
-};
-
-Board.propTypes = {
-  title: PropTypes.string,
 };
 
 export default Board;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Textarea from "@commonComponents/textarea/Textarea";
-import TextareaGroup from "@commonComponents/textareaGroup/TextareaGroup";
-import Card from "@components/card/Card";
-import { addCard, patchColumn } from "@routines";
-import { getAuth } from "@selectors/authSelector";
-import { getColumnCards } from "@selectors/cardSelector";
+import Textarea from "commonComponents/textarea/Textarea";
+import TextareaGroup from "commonComponents/textareaGroup/TextareaGroup";
+import Card from "components/card/Card";
+import { addCard, patchColumn } from "routines";
+import { getAuth } from "selectors/authSelector";
+import { getColumnCards } from "selectors/cardSelector";
 import "./column.css";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 
 const Column: React.FunctionComponent<Props> = ({ column }) => {
   const dispatch = useDispatch();
-  const { name } = useSelector(getAuth);
+  const { name }: Auth = useSelector(getAuth);
   const cards = useSelector(getColumnCards(column));
 
   const [isEditTitle, setIsEditTitle] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useState, MouseEvent } from "react";
-import TextareaGroup from "@commonComponents/textareaGroup/TextareaGroup";
+import TextareaGroup from "commonComponents/textareaGroup/TextareaGroup";
 import { useDispatch } from "react-redux";
-import { removeComment, patchComment } from "@routines";
+import { removeComment, patchComment } from "routines";
 import "./comment.css";
 
 type Props = {

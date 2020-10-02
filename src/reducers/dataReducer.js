@@ -7,8 +7,8 @@ import {
   patchCard,
   patchComment,
   patchColumn,
-} from "../routines";
-import { getNewId } from "@utils";
+} from "routines";
+import { getNewId } from "utils";
 
 export function dataReducer(state = initDataApplication, action) {
   switch (action.type) {

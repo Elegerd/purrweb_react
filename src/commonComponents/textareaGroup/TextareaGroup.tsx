@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, MouseEvent } from "react";
-import PropTypes from "prop-types";
-import Textarea from "@commonComponents/textarea/Textarea";
+import Textarea from "commonComponents/textarea/Textarea";
 import "./textareagroup.css";
 
 type Props = {
@@ -10,7 +9,12 @@ type Props = {
   onClick: (value: string) => void;
 };
 
-const TextareaGroup: React.FunctionComponent<Props> = ({ value, titleButton, placeholder, onClick }) => {
+const TextareaGroup: React.FunctionComponent<Props> = ({
+  value,
+  titleButton,
+  placeholder,
+  onClick,
+}) => {
   const textareaGroup = useRef();
   const [valueTextarea, setValueTextarea] = useState(value);
 

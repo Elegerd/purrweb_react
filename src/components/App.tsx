@@ -1,24 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Header from "@components/header/Header";
-import Board from "@components/board/Board";
-import Popup from "@commonComponents/popup/Popup";
-import { getAuth } from "@selectors/authSelector";
-import { setName } from "@routines";
+import Header from "components/header/Header";
+import Board from "components/board/Board";
+import Popup from "commonComponents/popup/Popup";
+import { getAuth } from "selectors/authSelector";
+import { setName } from "routines";
 import "./app.css";
 
-const App = () => {
+const App: React.FunctionComponent = () => {
   const nameInput = useRef(null);
   const [isOpenModalName, setIsOpenModalName] = useState(false);
 
   const dispatch = useDispatch();
-  const { name } = useSelector(getAuth);
+  const { name }: Auth = useSelector(getAuth);
 
   useEffect(() => {
     if (!name) setIsOpenModalName(true);
   }, []);
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = () => {
     const name = nameInput.current.value || "Guest";
     setIsOpenModalName(false);
     dispatch(setName(name));
