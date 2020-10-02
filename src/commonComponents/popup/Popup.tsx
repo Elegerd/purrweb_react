@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
 import "./popup.css";
 
 type Props = {
@@ -13,8 +13,9 @@ const Popup: React.FunctionComponent<Props> = ({ children, onClose }) => {
     };
   }, []);
 
-  const handleEscPress = (e: any) => {
-    if (e.key === "Esc") {
+  const handleEscPress: EventListener | EventListenerObject = (evt): void => {
+    const event = evt as KeyboardEvent;
+    if (event.key === "Escape") {
       onClose?.();
     }
   };
