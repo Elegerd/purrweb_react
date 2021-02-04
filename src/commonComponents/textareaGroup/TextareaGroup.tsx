@@ -1,11 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
-import Textarea from "@common_components/textarea/Textarea";
+import Textarea from "commonComponents/textarea/Textarea";
 import "./textareagroup.css";
 
-const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
-  const textareaGroup = useRef();
-  const [valueTextarea, setValueTextarea] = useState(value);
+type Props = {
+  value?: string;
+  titleButton: string;
+  placeholder: string;
+  onClick: (value: string) => void;
+};
+
+const TextareaGroup: React.FunctionComponent<Props> = ({
+  value,
+  titleButton,
+  placeholder,
+  onClick,
+}) => {
+  const textareaGroup = useRef<HTMLDivElement>(null);
+  const [valueTextarea, setValueTextarea] = useState(value || "");
 
   useEffect(() => {
     document.addEventListener("click", handleOnClickContains, false);
@@ -14,31 +25,28 @@ const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
     };
   });
 
-  const handleOnClickContains = (e) => {
-    if (textareaGroup.current && !textareaGroup.current.contains(e.target)) {
+  const handleOnClickContains: EventListener | EventListenerObject = (
+    evt
+  ): void => {
+    const target = evt.target as HTMLElement;
+    if (textareaGroup.current && !textareaGroup.current?.contains(target)) {
       setValueTextarea("");
       onClick(valueTextarea);
     }
   };
 
-  const handleOnKeyPress = () => {
+  const handleOnClick = () => {
     setValueTextarea("");
     onClick(valueTextarea);
   };
 
-  const handleOnClick = (e) => {
-    setValueTextarea("");
-    onClick(valueTextarea);
-  };
-
-  const handleOnChangeValue = (value) => setValueTextarea(value);
+  const handleOnChangeValue = (value: string) => setValueTextarea(value);
 
   return (
     <div ref={textareaGroup} className={"textarea-group"}>
       <Textarea
         value={valueTextarea}
         placeholder={placeholder}
-        onKeyPress={handleOnKeyPress}
         onChangeValue={handleOnChangeValue}
         autoFocus={false}
       />
@@ -49,13 +57,6 @@ const TextareaGroup = ({ value, titleButton, placeholder, onClick }) => {
       </div>
     </div>
   );
-};
-
-TextareaGroup.propTypes = {
-  value: PropTypes.string,
-  titleButton: PropTypes.string,
-  placeholder: PropTypes.string,
-  onClick: PropTypes.func,
 };
 
 TextareaGroup.defaultProps = {

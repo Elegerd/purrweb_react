@@ -1,8 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  FocusEvent,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./textarea.css";
 
-const Textarea = ({
+type Props = {
+  value: string;
+  placeholder?: string;
+  autoFocus?: boolean;
+  isEdit?: boolean;
+  onChangeValue?: (value: string) => void;
+  onChangeIsEdit?: (value: boolean) => void;
+};
+
+const Textarea: React.FunctionComponent<Props> = ({
   value,
   placeholder,
   autoFocus,
@@ -12,7 +28,7 @@ const Textarea = ({
 }) => {
   const [height, setHeight] = useState(0);
   const [valueTextarea, setValueTextarea] = useState(value);
-  const textarea = useRef(null);
+  const textarea = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (textarea.current && height !== textarea.current.scrollHeight) {
@@ -23,24 +39,25 @@ const Textarea = ({
     }
   });
 
-  const handleOnBlur = (e) => {
+  const handleOnBlur = (e: FocusEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
-    onChangeValue(valueTextarea);
-    onChangeIsEdit(false);
+    onChangeValue?.(valueTextarea);
+    onChangeIsEdit?.(false);
   };
 
-  const handleOnChange = (e) => setValueTextarea(e.target.value);
+  const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setValueTextarea?.(e.target.value);
 
-  const handleOnClick = (e) => {
+  const handleOnClick = (e: MouseEvent<HTMLLabelElement>) => {
     e.preventDefault();
-    onChangeIsEdit(true);
+    onChangeIsEdit?.(true);
   };
 
-  const handleOnKeyPress = (e) => {
-    if (!e.shiftKey && e.which === 13) {
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!e.shiftKey && e.key === "Enter") {
       e.preventDefault();
-      onChangeValue(valueTextarea);
-      onChangeIsEdit(false);
+      onChangeValue?.(valueTextarea);
+      onChangeIsEdit?.(false);
     }
   };
 
@@ -61,21 +78,12 @@ const Textarea = ({
   );
 };
 
-Textarea.propTypes = {
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  isEdit: PropTypes.bool,
-  onChangeValue: PropTypes.func,
-  onChangeIsEdit: PropTypes.func,
-};
-
-Textarea.defaultProps = {
+const defaultProps = {
   isEdit: true,
   autoFocus: true,
   placeholder: "",
-  onChangeValue: () => {},
-  onChangeIsEdit: () => {},
 };
+
+Textarea.defaultProps = defaultProps;
 
 export default Textarea;

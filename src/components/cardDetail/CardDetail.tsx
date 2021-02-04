@@ -1,49 +1,56 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import Textarea from "@common_components/textarea/Textarea";
-import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
-import Comment from "@components/comment/Comment";
+import Textarea from "commonComponents/textarea/Textarea";
+import TextareaGroup from "commonComponents/textareaGroup/TextareaGroup";
+import Comment from "components/comment/Comment";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, patchCard, removeCard } from "@routines/index";
-import { getAuth } from "@selectors/authSelector";
+import { addComment, patchCard, removeCard } from "routines/index";
+import { getAuth } from "selectors/authSelector";
 import "./cardDetail.css";
 
-const CardDetail = ({ columnTitle, card, comments }) => {
-  const { name } = useSelector(getAuth);
+type Props = {
+  columnTitle: string;
+  card: Card;
+  comments: Array<UserComment>;
+};
+
+const CardDetail: React.FunctionComponent<Props> = ({
+  columnTitle,
+  card,
+  comments,
+}) => {
+  const { name }: AuthState = useSelector(getAuth);
   const dispatch = useDispatch();
   const [isNewComment, setIsNewComment] = useState(false);
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isEditDescription, setIsEditDescription] = useState(false);
 
-  const onChangeCard = (id, data) => dispatch(patchCard({ id, data }));
-  const onAddComment = (newComment) => dispatch(addComment(newComment));
-  const onRemoveCard = (id) => dispatch(removeCard(id));
+  const onChangeCard = (data: {
+    id: number;
+    title?: string;
+    description?: string;
+  }) => dispatch(patchCard(data));
+  const onAddComment = (newComment: UserComment) =>
+    dispatch(addComment(newComment));
+  const onRemoveCard = (id: number) => dispatch(removeCard(id));
 
-  const handleOnKeyPress = (e) => {
-    if (!e.shiftKey && e.which === 13) {
-      setIsEditTitle(false);
-      setIsEditDescription(false);
-      e.preventDefault();
-    }
-  };
-
-  const handleOnClickSaveDescription = (value) => {
-    onChangeCard(card.id, { description: value });
+  const handleOnClickSaveDescription = (value: string) => {
+    onChangeCard({ id: card.id, description: value });
     setIsEditDescription(false);
   };
 
-  const handleOnClickAddNewComment = (value) => {
+  const handleOnClickAddNewComment = (value: string) => {
     if (value.length)
       onAddComment({
+        id: -1,
         value,
         card_id: card.id,
-        author: name,
+        author: name || "Guest",
         date: new Date(),
       });
     setIsNewComment(false);
   };
 
-  const handleOnClickRemoveCard = (e) => onRemoveCard(card.id);
+  const handleOnClickRemoveCard = () => onRemoveCard(card.id);
 
   const renderDescription = () => {
     const placeholder = "Добавить более подробное описание...";
@@ -83,7 +90,11 @@ const CardDetail = ({ columnTitle, card, comments }) => {
           </p>
         )}
         {comments.map((comment) => (
-          <Comment key={comment.id} authName={name} comment={comment} />
+          <Comment
+            key={comment.id}
+            authName={name || "Guest"}
+            comment={comment}
+          />
         ))}
       </>
     );
@@ -95,10 +106,8 @@ const CardDetail = ({ columnTitle, card, comments }) => {
         <Textarea
           isEdit={isEditTitle}
           value={card.title}
-          onBlur={(value) => setIsEditTitle(value)}
-          onKeyPress={handleOnKeyPress}
           onChangeIsEdit={(value) => setIsEditTitle(value)}
-          onChangeValue={(value) => onChangeCard(card.id, { title: value })}
+          onChangeValue={(value) => onChangeCard({ id: card.id, title: value })}
         />
         <div className={"header__column-title"}>в колонке {columnTitle}</div>
       </div>
@@ -125,17 +134,6 @@ const CardDetail = ({ columnTitle, card, comments }) => {
       </div>
     </>
   );
-};
-
-CardDetail.propTypes = {
-  columnTitle: PropTypes.string,
-  card: PropTypes.shape({
-    id: PropTypes.number,
-    column_id: PropTypes.number,
-    title: PropTypes.string,
-    description: PropTypes.string,
-  }),
-  comments: PropTypes.array,
 };
 
 export default CardDetail;

@@ -1,29 +1,34 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
+import React, { useState, MouseEvent } from "react";
+import TextareaGroup from "commonComponents/textareaGroup/TextareaGroup";
 import { useDispatch } from "react-redux";
-import { removeComment, patchComment } from "@routines/index";
+import { removeComment, patchComment } from "routines/index";
 import "./comment.css";
 
-const Comment = ({ authName, comment }) => {
+type Props = {
+  authName: string;
+  comment: UserComment;
+};
+
+const Comment: React.FunctionComponent<Props> = ({ authName, comment }) => {
   const dispatch = useDispatch();
   const [isEditComment, setIsEditComment] = useState(false);
 
-  const onChangeComment = (id, data) => dispatch(patchComment({ id, data }));
-  const onRemoveComment = (id) => dispatch(removeComment(id));
+  const onChangeComment = (data: { id: number; value: string }) =>
+    dispatch(patchComment(data));
+  const onRemoveComment = (id: number) => dispatch(removeComment(id));
 
-  const handleOnClickRemove = (e) => {
+  const handleOnClickRemove = (e: MouseEvent) => {
     e.preventDefault();
     onRemoveComment(comment.id);
   };
 
-  const handleOnClickIsEdit = (e) => {
+  const handleOnClickIsEdit = (e: MouseEvent) => {
     e.preventDefault();
     setIsEditComment(true);
   };
 
-  const handleOnClickChangeComment = (value) => {
-    if (value.length) onChangeComment(comment.id, { value });
+  const handleOnClickChangeComment = (value: string) => {
+    if (value.length) onChangeComment({ id: comment.id, value });
     setIsEditComment(false);
   };
 
@@ -66,16 +71,6 @@ const Comment = ({ authName, comment }) => {
       </div>
     </div>
   );
-};
-
-Comment.propTypes = {
-  authName: PropTypes.string,
-  comment: PropTypes.shape({
-    id: PropTypes.number,
-    author: PropTypes.string,
-    date: PropTypes.date,
-    value: PropTypes.string,
-  }),
 };
 
 export default Comment;

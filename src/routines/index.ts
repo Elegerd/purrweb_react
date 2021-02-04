@@ -7,8 +7,8 @@ import {
   PATCH_CARD,
   PATCH_COMMENT,
   PATCH_COLUMN,
-} from "@actions/dataActions";
-import { SET_NAME } from "@actions/authActions";
+} from "actions/dataActions";
+import { SET_NAME } from "actions/authActions";
 
 export const addCard = createRoutine(ADD_CARD);
 export const addComment = createRoutine(ADD_COMMENT);

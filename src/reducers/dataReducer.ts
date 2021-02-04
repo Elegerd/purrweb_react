@@ -7,15 +7,19 @@ import {
   patchCard,
   patchComment,
   patchColumn,
-} from "../routines";
-import { getNewId } from "@utils";
+} from "routines/index";
+import { AnyAction } from "redux";
+import { getNewId } from "utils/index";
 
-export function dataReducer(state = initDataApplication, action) {
+export function dataReducer(
+  state = initDataApplication,
+  action: AnyAction
+): DataState {
   switch (action.type) {
     case addCard.TRIGGER: {
       const newCard = {
-        id: getNewId(state.cards.map((card) => card.id)),
         ...action.payload,
+        id: getNewId(state.cards.map((card) => card.id)),
       };
       return {
         ...state,
@@ -24,8 +28,8 @@ export function dataReducer(state = initDataApplication, action) {
     }
     case addComment.TRIGGER: {
       const newComment = {
-        id: getNewId(state.comments.map((comment) => comment.id)),
         ...action.payload,
+        id: getNewId(state.comments.map((comment) => comment.id)),
       };
       return {
         ...state,
@@ -49,7 +53,7 @@ export function dataReducer(state = initDataApplication, action) {
       };
     }
     case patchCard.TRIGGER: {
-      const { id, data } = action.payload;
+      const { id, ...data } = action.payload;
       return {
         ...state,
         cards: state.cards.map((card) => {
@@ -63,7 +67,7 @@ export function dataReducer(state = initDataApplication, action) {
       };
     }
     case patchComment.TRIGGER: {
-      const { id, data } = action.payload;
+      const { id, ...data } = action.payload;
       return {
         ...state,
         comments: state.comments.map((comment) => {
@@ -77,7 +81,7 @@ export function dataReducer(state = initDataApplication, action) {
       };
     }
     case patchColumn.TRIGGER: {
-      const { id, data } = action.payload;
+      const { id, ...data } = action.payload;
       return {
         ...state,
         columns: state.columns.map((column) => {

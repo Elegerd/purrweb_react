@@ -1,31 +1,36 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { MouseEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Textarea from "@common_components/textarea/Textarea";
-import TextareaGroup from "@common_components/textareaGroup/TextareaGroup";
-import Card from "@components/card/Card";
-import { addCard, patchColumn } from "@routines";
-import { getAuth } from "@selectors/authSelector";
-import { getColumnCards } from "@selectors/cardSelector";
+import Textarea from "commonComponents/textarea/Textarea";
+import TextareaGroup from "commonComponents/textareaGroup/TextareaGroup";
+import CardComponent from "components/card/Card";
+import { addCard, patchColumn } from "routines/index";
+import { getAuth } from "selectors/authSelector";
+import { getColumnCards } from "selectors/cardSelector";
 import "./column.css";
 
-const Column = ({ column }) => {
+type Props = {
+  column: Column;
+};
+
+const Column: React.FunctionComponent<Props> = ({ column }) => {
   const dispatch = useDispatch();
-  const { name } = useSelector(getAuth);
+  const { name }: AuthState = useSelector(getAuth);
   const cards = useSelector(getColumnCards(column));
 
   const [isEditTitle, setIsEditTitle] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
 
-  const onChangeColumn = (id, data) => dispatch(patchColumn({ id, data }));
-  const onAddCard = (newCard) => dispatch(addCard(newCard));
+  const onChangeColumn = (data: { id: number; title: string }) =>
+    dispatch(patchColumn(data));
+  const onAddCard = (newCard: Card) => dispatch(addCard(newCard));
 
-  const handleOnClickCard = (value) => {
+  const handleOnClickCard = (value: string) => {
     if (value.length > 0)
       onAddCard({
+        id: -1,
         title: value,
         column_id: column.id,
-        author: name,
+        author: name || "Guest",
         description: "",
       });
     setIsAddingCard(false);
@@ -41,7 +46,7 @@ const Column = ({ column }) => {
     );
   };
 
-  const handleOnClickNewCard = (e) => {
+  const handleOnClickNewCard = (e: MouseEvent) => {
     e.stopPropagation();
     setIsAddingCard(true);
   };
@@ -53,10 +58,8 @@ const Column = ({ column }) => {
           <Textarea
             value={column.title}
             isEdit={isEditTitle}
-            onBlur={() => setIsEditTitle(false)}
-            onKeyPress={() => setIsEditTitle(false)}
             onChangeValue={(value) =>
-              onChangeColumn(column.id, { title: value })
+              onChangeColumn({ id: column.id, title: value })
             }
             onChangeIsEdit={(value) => setIsEditTitle(value)}
           />
@@ -64,7 +67,11 @@ const Column = ({ column }) => {
         <div className={"column__list-cards"}>
           {cards.map((card) => {
             return (
-              <Card key={card.id} columnTitle={column.title} card={card} />
+              <CardComponent
+                key={card.id}
+                columnTitle={column.title}
+                card={card}
+              />
             );
           })}
         </div>
@@ -87,13 +94,6 @@ const Column = ({ column }) => {
       </div>
     </div>
   );
-};
-
-Column.propTypes = {
-  column: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-  }),
 };
 
 export default Column;

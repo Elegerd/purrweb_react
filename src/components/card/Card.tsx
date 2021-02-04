@@ -1,16 +1,20 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, MouseEvent } from "react";
 import { useSelector } from "react-redux";
-import Popup from "@common_components/popup/Popup";
-import CardDetail from "@components/cardDetail/CardDetail";
-import { getCardComments } from "@selectors/commentSelector";
+import Popup from "commonComponents/popup/Popup";
+import CardDetail from "components/cardDetail/CardDetail";
+import { getCardComments } from "selectors/commentSelector";
 import "./card.css";
 
-const Card = ({ columnTitle, card }) => {
-  const comments = useSelector(getCardComments(card));
+type Props = {
+  columnTitle: string;
+  card: Card;
+};
+
+const Card: React.FunctionComponent<Props> = ({ columnTitle, card }) => {
+  const comments: Array<UserComment> = useSelector(getCardComments(card));
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleOnClickCloseModal = (e) => {
+  const handleOnClickCloseModal = (e: MouseEvent) => {
     e.preventDefault();
     setIsOpenModal(false);
   };
@@ -51,16 +55,6 @@ const Card = ({ columnTitle, card }) => {
       {isOpenModal && renderPopup()}
     </>
   );
-};
-
-Card.propTypes = {
-  columnTitle: PropTypes.string,
-  card: PropTypes.shape({
-    id: PropTypes.number,
-    column_id: PropTypes.number,
-    title: PropTypes.string,
-    description: PropTypes.string,
-  }),
 };
 
 export default Card;
